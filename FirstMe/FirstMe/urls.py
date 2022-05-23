@@ -23,9 +23,9 @@ urlpatterns = [
     # 홈페이지
     path('', views.home, name="home"),
     # 로그인 페이지
-    path('login/', views.login, name="login"),
+    path('registration/login/', views.login, name="login"),
     # 회원가입 페이지
-    path('signup/', views.signup, name="signup"),
+    path('registration/signup/', views.signup, name="signup"),
     # 내 명함 만들기 페이지 (1, 2로 나뉘어서 필수와 선택 보이게 할 것)
     path('make/', views.make, name="make"),
 

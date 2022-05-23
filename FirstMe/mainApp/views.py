@@ -23,12 +23,16 @@ def detail(request):
 def edit(request):
     pass
 
+
+
+
 def group_detail(request):
     pass
 
 def personal_invitation(request):
     pass
 
+@login_required(login_url="/registration/login")
 def group_invitation(request):
     pass
 

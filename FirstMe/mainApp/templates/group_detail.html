@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'group_detail.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+
+<!-- 유저가 그룹 열람 권한이 없을 때 -->
+{% if error %}
+    <p>{{ error }}</p>
+
+<!-- 유저가 그룹 열람 권한이 있을 때 -->
+{% else %}
+<h1>group.name</h1>
+<ul>
+    {% for member in group.members %}
+    <li>member.name</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock content %}

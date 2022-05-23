@@ -33,14 +33,14 @@ urlpatterns = [
     # path('<slug:card_link>/', views.detail, name="detail"),
     # # 내 명함 수정 페이지
     # path('<slug:card_link>/edit', views.edit, name="edit"),
-    # # 그룹 디테일
-    # path('group/<int:group_pk>/', views.group_detail, name="group_detail"),
+    # 그룹 디테일
+    path('group/<int:group_pk>/', views.group_detail, name="group_detail"),
     # # 내 명함 1대1 초대 페이지
     # path('<slug:card_link>/<int:access_code>/', views.personal_invitation, name="personal_invitation"),
     # 그룹 만들기 페이지(그룹 이름 입력하는 칸)
     path('make_group/', views.make_group, name="make_group"),
-    # # 그룹 초대 페이지
-    # path('<int:group_pk>/<int:access_code>/', views.group_invitation, name="group_invitation"),
+    # 그룹 초대 페이지
+    path('<int:group_pk>/<int:access_code>/', views.group_invitation, name="group_invitation"),
    
     # # 그룹 목록
     # path('<slug:card_link>/group_list/', views.group_list, name="group_list"),

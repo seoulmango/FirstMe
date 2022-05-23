@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from django.shortcuts import render, redirect
 from .models import Card, Groups, Friendlists
 from django.contrib.auth.models import User
@@ -8,8 +7,8 @@ import random
 
 # Create your views here.
 
-# def home(request):
-#     pass
+def home(request):
+    return render(request, 'home.html')
 
 def signup(request):
     if request.method == "POST":
@@ -87,7 +86,7 @@ def make_group(request):
             creater=request.user,
             invitation_link=new_code
             )
-        return redirect('group_invitation', new_group.pk, new_group.invitation_link)
+        return redirect('group_invitation', new_group.pk, new_code)
     return render(request, "make_group.html")
 
 @login_required(login_url="/registration/login")
@@ -100,7 +99,7 @@ def group_invitation(request, group_pk, access_code):
     # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
     if request.method == "POST":
         group.update(invitation_link=None)
-        return render(request, "group_detail.html", {
+        return render(request, "group_detail.html", group_pk, {
         'user': user,
         'group': group,
         })

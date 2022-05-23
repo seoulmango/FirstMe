@@ -20,28 +20,30 @@ from mainApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # 홈페이지
-    path('', views.home, name="home"),
-    # 로그인 페이지
-    path('registration/login/', views.login, name="login"),
-    # 회원가입 페이지
-    path('registration/signup/', views.signup, name="signup"),
-    # 내 명함 만들기 페이지 (1, 2로 나뉘어서 필수와 선택 보이게 할 것)
-    path('make/', views.make, name="make"),
+    # # 홈페이지
+    # path('', views.home, name="home"),
+    # # 로그인 페이지
+    # path('registration/login/', views.login, name="login"),
+    # # 회원가입 페이지
+    # path('registration/signup/', views.signup, name="signup"),
+    # # 내 명함 만들기 페이지 (1, 2로 나뉘어서 필수와 선택 보이게 할 것)
+    # path('make/', views.make, name="make"),
 
-    # 내 명함 디테일 페이지
-    path('<slug:card_link>/', views.detail, name="detail"),
-    # 내 명함 수정 페이지
-    path('<slug:card_link>/edit', views.edit, name="edit"),
-    # 그룹 디테일
-    path('<int:group_pk>/', views.group_detail, name="group_detail"),
-    # 내 명함 1대1 초대 페이지
-    path('<slug:card_link>/<int:access_code>/', views.personal_invitation, name="personal_invitation"),
-    # 그룹 초대 페이지
-    path('<int:group_pk>/<int:access_code>/', views.group_invitation, name="group_invitation"),
+    # # 내 명함 디테일 페이지
+    # path('<slug:card_link>/', views.detail, name="detail"),
+    # # 내 명함 수정 페이지
+    # path('<slug:card_link>/edit', views.edit, name="edit"),
+    # # 그룹 디테일
+    # path('group/<int:group_pk>/', views.group_detail, name="group_detail"),
+    # # 내 명함 1대1 초대 페이지
+    # path('<slug:card_link>/<int:access_code>/', views.personal_invitation, name="personal_invitation"),
+    # 그룹 만들기 페이지(그룹 이름 입력하는 칸)
+    path('make_group/', views.make_group, name="make_group"),
+    # # 그룹 초대 페이지
+    # path('<int:group_pk>/<int:access_code>/', views.group_invitation, name="group_invitation"),
    
-    # 그룹 목록
-    path('<slug:card_link>/group_list/', views.group_list, name="group_list"),
-    # 친구 목록
-    path('<slug:card_link>/friend_list/', views.friend_list, name="friend_list"),
+    # # 그룹 목록
+    # path('<slug:card_link>/group_list/', views.group_list, name="group_list"),
+    # # 친구 목록
+    # path('<slug:card_link>/friend_list/', views.friend_list, name="friend_list"),
 ]

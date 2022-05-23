@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{% static 'base.css'%}" />
+    {% block css %}
+    {% endblock css %}
+    <title>FirstMe</title>
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <div class="navbar__menu__item"><a href="">로그아웃</a></div>
+    {% else %}
+    <div class="navbar__menu__item"><a href="">로그인</a></div>
+    <div class="navbar__menu__item"><a href="">회원가입</a></div>
+    {% endif %}
+
+    {% block title %} {% endblock title %}
+
+    {% block content %} {% endblock content %}
+</body>
+
+</html>

@@ -8,7 +8,8 @@ import random
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
+    user = request.user
+    return render(request, 'home.html', {'user':user})
 
 def signup(request):
     if request.method == "POST":
@@ -57,9 +58,9 @@ def make(request):
         mbti = request.POST['mbti']
 
         # 유저가 벌써 명함을 소유하고 있는가?
-        if len(user.cards):
-            error = "벌써 명함이 있습니다"
-            return render(request, 'make.html', {'error':error})
+        # if len(user.cards):
+        #     error = "벌써 명함이 있습니다"
+        #     return render(request, 'make.html', {'error':error})
 
         # 도메인을 벌써 소유한 다른 카드가 있는가?
         already = Card.objects.filter(link = link)
@@ -67,7 +68,7 @@ def make(request):
             error = "같은 도메인의 소유자가 벌써 있습니다"
             return render(request, 'make.html', {'error':error})
         else:
-            new_card = Groups.objects.create(
+            new_card = Card.objects.create(
                 owner = user,
                 link = link,
                 name=name,
@@ -78,8 +79,10 @@ def make(request):
             return redirect('home')
     return render(request, "make.html")
 
-# def detail(request):
-#     pass
+@login_required(login_url="/registration/login")
+def detail(request, card_link):
+    card = Card.objects.filter(link=card_link)
+    return render(request, "detail.html", {"card":card})
 
 # def edit(request):
 #     pass

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'detail.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+
+<h1>명함 페이지</h1>
+<h1>{{ card.link }}</h1>
+
+{% endblock content %}

@@ -22,12 +22,14 @@ urlpatterns = [
 
     # 홈페이지
     path('', views.home, name="home"),
-    # # 로그인 페이지
+    # #로그인 페이지
     path('registration/login/', views.login, name="login"),
-    # # 회원가입 페이지
+    # 회원가입 페이지
     path('registration/signup/', views.signup, name="signup"),
-    # # 내 명함 만들기 페이지 (1, 2로 나뉘어서 필수와 선택 보이게 할 것)
-    # path('make/', views.make, name="make"),
+    # 로그아웃
+    path('registration/logout/', views.logout, name="logout"),
+    # 내 명함 만들기 페이지 (1, 2로 나뉘어서 필수와 선택 보이게 할 것)
+    path('make/', views.make, name="make"),
 
     # # 내 명함 디테일 페이지
     # path('<slug:card_link>/', views.detail, name="detail"),

@@ -42,8 +42,13 @@ def login(request):
         })
     return render(request, "registration/login.html")
 
-# def make(request):
-#     pass
+def logout(request):
+    auth.logout(request)
+    return redirect('home')
+
+@login_required(login_url="/registration/login")
+def make(request):
+    return render(request, "make.html")
 
 # def detail(request):
 #     pass

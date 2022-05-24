@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'make.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+<h2>내 카드 만들기</h2>
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="link" placeholder="내 도메인 주소" />
+    <br>
+    <br>
+    <button type="submit">명함 생성하기</button>
+</form>
+{% endblock content %}

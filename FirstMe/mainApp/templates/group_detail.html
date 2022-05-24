@@ -14,10 +14,10 @@
 
 <!-- 유저가 그룹 열람 권한이 있을 때 -->
 {% else %}
-<h1>group.name</h1>
+<h1>{{group.name}}</h1>
 <ul>
-    {% for member in group.members %}
-    <li>member.name</li>
+    {% for member in members %}
+    <li>{{member}}</li>
     {% endfor %}
 </ul>
 {% endif %}

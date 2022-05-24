@@ -8,14 +8,15 @@
 {% block content %}
 
 <h1>그룹 입장 코드를 복사하여 친구들에게 전달하세요: </h1>
-<p>{{ group.pk }}/{{ group.invitation_link }}/</p>
+<p>http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/</p>
 
 {% if user == group.creater %}
 <form method="POST">
+    {% csrf_token %}
     <button submit>그룹 초대 닫기</button>
 </form>
 {% else %}
-<a href="{% url 'group_detail' {{ group.pk }} %}">그룹으로 이동하기</a>
+<a href="/group/{{ group.pk }}">그룹으로 이동하기</a>
 {% endif %}
 
 {% endblock content %}

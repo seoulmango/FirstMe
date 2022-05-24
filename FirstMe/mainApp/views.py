@@ -81,18 +81,34 @@ def make(request):
 
 @login_required(login_url="/registration/login")
 def detail(request, card_link):
-    card = Card.objects.filter(link=card_link)
-    return render(request, "detail.html", {"card":card})
+    user = request.user
+    card = Card.objects.get(link=card_link)
+    # 이 명함의 주인일 때
+    if card.owner == user:
+        return render(request, "detail.html", {"card":card})
+    # 이 명함의 친구 일 때
+        # 코드 짜기!!!!!!!!!
+
+    # 열람 권한이 없을 때
+    else:
+        error = "이 명함의 열람 권한이 없습니다."
+        return render(request, "detail.html", {"error":error})
+
 
 # def edit(request):
 #     pass
 
 @login_required(login_url="/registration/login")
 def group_detail(request, group_pk):
-    group = Groups.objects.filter(pk=group_pk)
+    group = Groups.objects.get(pk=group_pk)
     user = request.user
-    if user in group.members:
-        return render(request, "group_detail.html")
+    members = group.members.all()
+    if user in members:
+        return render(request, "group_detail.html", {
+            'group': group,
+            'user':user,
+            'members': members
+        })
     else:
         error = "이 그룹의 열람 권한이 없습니다."
         return render(request, "group_detail.html", {
@@ -127,18 +143,18 @@ def make_group(request):
 
 @login_required(login_url="/registration/login")
 def group_invitation(request, group_pk, access_code):
-    group = Groups.objects.filter(pk=group_pk)
+    group = Groups.objects.get(pk=group_pk)
     user = request.user
     # 사이트에 입장한 유저 그룹 멤버에 추가하기
     group.members.add(user)
+    group.save()
 
     # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
     if request.method == "POST":
+        group = Groups.objects.filter(pk=group_pk)
         group.update(invitation_link=None)
-        return render(request, "group_detail.html", group_pk, {
-        'user': user,
-        'group': group,
-        })
+        group = Groups.objects.get(pk=group_pk)
+        return redirect("group_detail", group_pk)
 
     return render(request, "group_invitation.html", {
         'user': user,

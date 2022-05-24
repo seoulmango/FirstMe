@@ -7,8 +7,13 @@
 
 
 {% block content %}
-
+{% if error %}
+    {{ error }}
+{% else %}
 <h1>명함 페이지</h1>
-<h1>{{ card.link }}</h1>
-
+<p>이름: {{ card.name }}</p>
+<p>전화번호: {{ card.phone_num }}</p>
+<p>한 줄 소개: {{ card.intro }}</p>
+<p>MBTI: {{ card.mbti }}</p>
+{% endif %}
 {% endblock content %}

@@ -48,6 +48,34 @@ def logout(request):
 
 @login_required(login_url="/registration/login")
 def make(request):
+    if request.method=="POST":
+        name = request.POST['name']
+        user = request.user
+        phone_num = request.POST['phone_num']
+        link = request.POST['link']
+        intro = request.POST['intro']
+        mbti = request.POST['mbti']
+
+        # 유저가 벌써 명함을 소유하고 있는가?
+        if len(user.cards):
+            error = "벌써 명함이 있습니다"
+            return render(request, 'make.html', {'error':error})
+
+        # 도메인을 벌써 소유한 다른 카드가 있는가?
+        already = Card.objects.filter(link = link)
+        if len(already):
+            error = "같은 도메인의 소유자가 벌써 있습니다"
+            return render(request, 'make.html', {'error':error})
+        else:
+            new_card = Groups.objects.create(
+                owner = user,
+                link = link,
+                name=name,
+                phone_num=phone_num,
+                intro=intro,
+                mbti=mbti,
+                )
+            return redirect('home')
     return render(request, "make.html")
 
 # def detail(request):

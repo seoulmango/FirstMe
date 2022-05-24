@@ -1,1 +1,17 @@
 {% extends 'base.html' %}
+
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>로그인 상태</h1>
+{% else %}
+<h1>로그인 아님</h1>
+{% endif %}
+
+{% endblock content %}

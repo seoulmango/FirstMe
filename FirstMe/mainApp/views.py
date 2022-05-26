@@ -49,6 +49,12 @@ def logout(request):
 
 @login_required(login_url="/registration/login")
 def make(request):
+    # 유저가 벌써 명함을 소유하고 있는가?
+    user = request.user
+    # if user.cards:
+    #     error = "벌써 명함이 있습니다"
+    #     return render(request, 'make.html', {'error':error})
+
     if request.method=="POST":
         name = request.POST['name']
         user = request.user
@@ -56,11 +62,6 @@ def make(request):
         link = request.POST['link']
         intro = request.POST['intro']
         mbti = request.POST['mbti']
-
-        # 유저가 벌써 명함을 소유하고 있는가?
-        # if len(user.cards):
-        #     error = "벌써 명함이 있습니다"
-        #     return render(request, 'make.html', {'error':error})
 
         # 도메인을 벌써 소유한 다른 카드가 있는가?
         already = Card.objects.filter(link = link)
@@ -145,9 +146,18 @@ def make_group(request):
 def group_invitation(request, group_pk, access_code):
     group = Groups.objects.get(pk=group_pk)
     user = request.user
-    # 사이트에 입장한 유저 그룹 멤버에 추가하기
-    group.members.add(user)
-    group.save()
+    # 코드가 유효하면, 사이트에 입장한 유저 그룹 멤버에 추가하기
+    if group.invitation_link == access_code:
+        group.members.add(user)
+        group.save()
+    else:
+        error = "이 그룹의 공유 코드가 닫혔습니다. 그룹장에게 문의해주세요."
+        return render(request, "group_invitation.html", {
+        'user': user,
+        'group': group,
+        'error': error
+    })
+        
 
     # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
     if request.method == "POST":

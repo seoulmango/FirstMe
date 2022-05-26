@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import random
+import qrcode
+from PIL import Image
 
 # Create your views here.
 
@@ -229,7 +231,6 @@ def group_invitation(request, group_pk, access_code):
         'group': group,
         'error': error
     })
-        
 
     # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
     if request.method == "POST":
@@ -238,9 +239,23 @@ def group_invitation(request, group_pk, access_code):
         group = Groups.objects.get(pk=group_pk)
         return redirect("group_detail", group_pk)
 
+    # qr 코드 생성하여 띄우기
+
+    img = qrcode.make('group/'+ str(group_pk)+'/'+ str(access_code)+'/')
+    qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_H,
+    box_size=10,
+    border=4,
+    )
+    qr.add_data('group/'+str(group_pk)+'/'+str(access_code)+'/')
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+    img.save("code.png")
     return render(request, "group_invitation.html", {
         'user': user,
-        'group': group
+        'group': group,
+        'img': img,
     })
 
 # def friend_list(request):

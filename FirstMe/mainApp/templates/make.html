@@ -11,7 +11,7 @@
 
 {% if error %}
     {{ error }}
-    {% else %}
+{% else %}
     <form method="POST">
         {% csrf_token %}
         <h2>Step 1: 필수</h2>

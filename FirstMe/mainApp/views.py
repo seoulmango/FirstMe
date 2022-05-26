@@ -7,26 +7,69 @@ import random
 
 # Create your views here.
 
+    
+
 def home(request):
     user = request.user
-    return render(request, 'home.html', {'user':user})
+    if user.is_authenticated:
+        card = Card.objects.get(owner=user)
+        return render(request, 'home.html', {
+        'user':user,
+        'card':card,
+        })
+    return render(request, 'home.html', {
+        'user':user,
+        })
 
 def signup(request):
     if request.method == "POST":
+        # 도메인을 벌써 소유한 다른 카드가 있는가?
+        link = request.POST['link']
+        found_link = Card.objects.filter(link = link)
         username = request.POST['username']
         password = request.POST['password']
         found_user = User.objects.filter(username=username)
-        if found_user:
+
+        if found_link:
+            error = "같은 도메인의 소유자가 벌써 있습니다"
+            return render(request, 'registration/signup.html', {
+                'error': error,
+            })
+        
+        # 겹치는 아이디가 있는가?
+        elif found_user:
             error = "이미 아이디가 존재합니다"
             return render(request, 'registration/signup.html', {
                 'error': error,
             })
-        new_user = User.objects.create_user(
-            username = username,
-            password = password
-        )
-        auth.login(request,new_user)
-        return redirect('home')
+        
+        # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
+        else:
+            new_user = User.objects.create_user(
+                username = username,
+                password = password,
+            )
+
+            auth.login(request,new_user)
+
+            user = request.user
+            name = request.POST['name']
+            phone_num = request.POST['phone_num']
+            link = request.POST['link']
+            intro = request.POST['intro']
+            mbti = request.POST['mbti']
+
+            
+            new_card = Card.objects.create(
+                owner = user,
+                link = link,
+                name=name,
+                phone_num=phone_num,
+                intro=intro,
+                mbti=mbti,
+                )
+            return redirect('home')
+
     return render(request, 'registration/signup.html')
 
 def login(request):
@@ -87,8 +130,17 @@ def detail(request, card_link):
     # 이 명함의 주인일 때
     if card.owner == user:
         return render(request, "detail.html", {"card":card})
-    # 이 명함의 친구 일 때
-        # 코드 짜기!!!!!!!!!
+    # 방문 유저와 명함이 같은 그룹에 있을 때
+    user_groups = user.mygroups.all()
+    access = False
+
+    for group in user_groups:
+        members = group.members.all()
+        if card.owner in members:
+            access = True
+    
+    if access:
+        return render(request, "detail.html", {"card": card})
 
     # 열람 권한이 없을 때
     else:
@@ -116,6 +168,26 @@ def group_detail(request, group_pk):
             'error': error
         })
 
+@login_required(login_url="/registration/login")
+def group_list(request, card_link):
+    user = request.user
+    groups = user.mygroups.all()
+    card = Card.objects.get(link=card_link)
+    # 이 명함의 주인일 때
+    if card.owner == user:
+        return render(request, "group_list.html",{
+            "card":card,
+            'user':user,
+            'groups':groups,
+        })
+    else:
+        error = "이 명함 그룹의 열람 권한이 없습니다."
+        return render(request, "group_list.html",{
+            "error": error,
+            "card":card,
+            'user':user,
+            'groups':groups,
+        })
 
 # def personal_invitation(request):
 #     pass
@@ -170,10 +242,6 @@ def group_invitation(request, group_pk, access_code):
         'user': user,
         'group': group
     })
-
-
-# def group_list(request):
-#     pass
 
 # def friend_list(request):
 #     pass

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'group_list.css' %}">
+{% endblock css %}
+
+
+{% block content %}
+{% if error %}
+{{ error }}
+{% else %}
+<ul>
+    {% for group in groups %}
+    <li><a href="{% url 'group_detail' group.pk %}">{{ group.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock content %}

@@ -44,8 +44,8 @@ urlpatterns = [
     # 그룹 초대 페이지
     path('group/<int:group_pk>/<int:access_code>/', views.group_invitation, name="group_invitation"),
    
-    # # 그룹 목록
-    # path('<slug:card_link>/group_list/', views.group_list, name="group_list"),
+    # 그룹 목록
+    path('<slug:card_link>/group_list/', views.group_list, name="group_list"),
     # # 친구 목록
     # path('<slug:card_link>/friend_list/', views.friend_list, name="friend_list"),
 ]

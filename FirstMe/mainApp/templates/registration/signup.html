@@ -8,12 +8,51 @@
 <section id="signup">
     <form method="POST">
         {% csrf_token %}
+
         {% if error %}
             <p>{{ error }}</p>
         {% endif %}
-        <input type="text" name="username" placeholder="아이디" />
-        <input type="text" name="password" placeholder="비밀번호" />
-        <button type="submit">회원가입하기</button>
+
+        <h1>내 계정 만들기</h1>
+
+        <input type="text" name="username" placeholder="아이디" required/>
+        <input type="text" name="password" placeholder="비밀번호" required />
+
+        <h1>내 명함 정보</h1>
+
+        <h2>Step 1: 필수</h2>
+        <input type="text" name="name" placeholder="이름" required/>
+        <input type="text" name="phone_num" placeholder="전화번호 ex)01012345678" required/>
+        <input type="text" name="link" placeholder="내 도메인 주소" required/>
+        <br>
+        <h2>Step 2: 선택</h2>
+        <input type="text" name="intro" max_length="50" placeholder="한줄 소개" />
+        <br>
+        <select name="mbti">
+            <option value="" selected>MBTI 선택하기</option>
+
+            <option value="INFJ">INFJ</option>
+            <option value="INFP">INFP</option>
+            <option value="INTJ">INTJ</option>
+            <option value="INTP">INTP</option>
+
+            <option value="ISFJ">ISFJ</option>
+            <option value="ISFP">ISFP</option>
+            <option value="ISTJ">ISTJ</option>
+            <option value="ISTP">ISTP</option>
+
+            <option value="ENFJ">ENFJ</option>
+            <option value="ENFP">ENFP</option>
+            <option value="ENTJ">ENTJ</option>
+            <option value="ENTP">ENTP</option>
+
+            <option value="ESFJ">ESFJ</option>
+            <option value="ESFP">ESFP</option>
+            <option value="ESTJ">ESTJ</option>
+            <option value="ESTP">ESTP</option>
+        </select>
+        <br>
+        <button type="submit">명함 만들기</button>
     </form>
 </section>
 {% endblock content %}

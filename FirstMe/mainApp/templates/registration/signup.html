@@ -5,13 +5,15 @@
 {% endblock css %}
 
 {% block content %}
-<div>
-    <h1>회원가입</h1>
+<div class="title-bar">
+    <div>
+        <a href="#" onClick="history.back()"> < </a> 
+    </div>
+    <div>회원가입</div>
+    <div class="invisible"> > </div>
 </div>
-<div>
-    <h3>나만의 명함 만들기!</h3>
-    <p>명함을 만들어 쉽고 빠르게<br>연락처를 주고 받아 보세요!</p>
-</div>
+
+<img class="banner" src="https://ifh.cc/g/OCo7WN.png">
 
 <section id="signup">
     <form method="POST">
@@ -20,89 +22,118 @@
         {% if error %}
             <p>{{ error }}</p>
         {% endif %}
+        <input type="text" name="username" placeholder="아이디" class="account" required/>
+        <br>
+        <input type="password" name="password1" id="password1" placeholder="비밀번호" class="account" required />
+        <br>
+        <input type="password" name="password2" id="password2" placeholder="비밀번호 확인" class="account" required />
+        <br>
+        <button type="button" onclick="test()" class="test-button">비밀번호 확인</button>
 
-        <h1>내 계정 만들기</h1>
-        <input type="text" name="username" placeholder="아이디" required/>
-        <br>
-        <input type="password" name="password1" id="password1" placeholder="비밀번호" required />
-        <br>
-        <input type="password" name="password2" id="password2" placeholder="비밀번호 확인" required />
-        <br>
-        <button type="button" onclick="test()">비밀번호 확인</button>
-        <h1>내 명함 만들기</h1>
+        <div class="make">내 명함 만들기</div>
 
         <h2>Step 1: 필수 항목을 채워주세요!</h2>
 
         <div>
-            <h3>사진</h3>
+            <h3>프로필 사진</h3>
             <p>아래 이미지 중 하나를 선택해 주세요</p>
-            {% for pic in profile_pics_men %}
+            <div class="input-box">
+                {% for pic in profile_pics_1 %}
+                <img src="{{pic}}" height="100" width="100">
+                {% endfor %}
+            </div>
+            <br>
+            <div class="input-box">
+                <span>
+                <input type="radio" id="profileChoice1"
+                name="profile_pic" value="1" required>
+                <label for="profileChoice1">1</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice2"
+                name="profile_pic" value="2">
+                <label for="profileChoice2">2</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice3"
+                name="profile_pic" value="3">
+                <label for="profileChoice3">3</label>
+                </span>
+            </div>
+            <br>
+            <div class="input-box">
+                {% for pic in profile_pics_2 %}
+                <img src="{{pic}}" height="100" width="100">
+                {% endfor %}
+            </div>
+            <br>
+            <div class="input-box">
+                <span>
+                <input type="radio" id="profileChoice4"
+                name="profile_pic" value="4" required>
+                <label for="profileChoice4">4</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice5"
+                name="profile_pic" value="5">
+                <label for="profileChoice5">5</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice6"
+                name="profile_pic" value="6">
+                <label for="profileChoice6">6</label>
+                </span>
+            </div>
+            <br>
+            <div class="input-box">
+                {% for pic in profile_pics_3 %}
+                <img src="{{pic}}" height="100" width="100">
+                {% endfor %}
+            </div>
+            <br>
+            <div class="input-box">
+                <span>
+                <input type="radio" id="profileChoice7"
+                name="profile_pic" value="7" required>
+                <label for="profileChoice7">7</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice8"
+                name="profile_pic" value="8">
+                <label for="profileChoice8">8</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice9"
+                name="profile_pic" value="9">
+                <label for="profileChoice9">9</label>
+                </span>
+            </div>
+            <br>
+            {% for pic in profile_pics_4 %}
             <img src="{{pic}}" height="100" width="100">
             {% endfor %}
             <br>
-            <input type="radio" id="profileChoice1"
-             name="profile_pic" value="1" required>
-            <label for="profileChoice1">1</label>
-
-            <input type="radio" id="profileChoice2"
-             name="profile_pic" value="2">
-            <label for="profileChoice2">2</label>
-
-            <input type="radio" id="profileChoice3"
-             name="profile_pic" value="3">
-            <label for="profileChoice3">3</label>
 
             <input type="radio" id="profileChoice4"
-             name="profile_pic" value="4">
-            <label for="profileChoice4">4</label>
-
-            <input type="radio" id="profileChoice5"
-             name="profile_pic" value="5">
-            <label for="profileChoice5">5</label>
-            
-            <br>
-
-            {% for pic in profile_pics_women %}
-            <img src="{{pic}}" height="100" width="100">
-            {% endfor %}
-            <br>
-
-            <input type="radio" id="profileChoice6"
-             name="profile_pic" value="6">
-            <label for="profileChoice6">6</label>
-
-            <input type="radio" id="profileChoice7"
-             name="profile_pic" value="7">
-            <label for="profileChoice7">7</label>
-
-            <input type="radio" id="profileChoice8"
-             name="profile_pic" value="8">
-            <label for="profileChoice8">8</label>
-
-            <input type="radio" id="profileChoice9"
-             name="profile_pic" value="9">
-            <label for="profileChoice9">9</label>
-
-            <input type="radio" id="profileChoice10"
              name="profile_pic" value="10">
-            <label for="profileChoice10">10</label>          
+            <label for="profileChoice10">10</label> 
         </div>
 
-        <p>이름</p>
+        <h3>이름</h3>
         <input type="text" name="name" placeholder="한글 10자, 영문 20자 이내로 입력해 주세요." required/>
-        <p>전화번호</p>
+        <h3>전화번호</h3>
         <input type="text" name="phone_num" placeholder="ex) 010-0000-0000" required/>
-        <p>내 도메인 주소</p>
-        <p>ex) 'mycard'입력 시 </p>
+        <h3>내 도메인 주소</h3>
+        <p class="ex">ex) 'mycard'입력 시 내 도메인 </p>
         <input type="text" name="link" placeholder="firstme.com/mycard/" required/>
         <p>영문/숫자만 입력가능합니다.</p>
 
         <br>
         <h2>Step 2: 선택 항목을 채워주세요!</h2>
-        <p>한 줄 소개</p>
+        <h3>한 줄 소개</h3>
         <input type="text" name="intro" max_length="50" placeholder="30자 이내" />
         <br>
-        <p>MBTI</p>
+        <h3>MBTI</h3>
         <select name="mbti">
             <option value="" selected>비공개</option>
 
@@ -127,7 +158,7 @@
             <option value="ESTP">ESTP</option>
         </select>
         <br>
-        <button type="submit">명함 만들기</button>
+        <button class="submit" type="submit">명함 만들기</button>
     </form>
 </section>
 {% endblock content %}

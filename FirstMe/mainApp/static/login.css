@@ -1,6 +1,4 @@
 .login{
-<<<<<<< HEAD
-
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -9,25 +7,10 @@
 
     text-align: center;
     color:#958D8D;
-=======
-    font-weight: 900;
-    font-size: 32px;
-    line-height: 38.4px;
-    background: linear-gradient(144.22deg, #FFBF8B 0%, #EE4D5F 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
->>>>>>> 67138878b75d9f24415014a19b68a930c6f2ed6d
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-<<<<<<< HEAD
-
-  
-
-=======
->>>>>>> 67138878b75d9f24415014a19b68a930c6f2ed6d
 }
 
 .container{
@@ -35,15 +18,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-   
 }
 
 a{
     text-decoration: none;
     color: #958D8D;
     font-weight: 500;
-    position: relative;
-    bottom:65px;
     font-size: 30px;
     
 }
@@ -79,5 +59,28 @@ button{
     height:54px;
     border: solid 1px #FF8282;
     border-radius: 50px;
+    margin-bottom:10px;
 }
 
+.login-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invisible {
+    color: transparent;
+    font-size: 30px;
+}
+
+.signup{
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 22px;
+/* identical to box height */
+
+text-align: center;
+
+color: rgba(28, 26, 26, 0.53);
+}

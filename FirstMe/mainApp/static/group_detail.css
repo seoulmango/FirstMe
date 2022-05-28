@@ -8,6 +8,12 @@
 }
 
 
+
+.group_name > p{
+    margin-bottom: 10px;
+}
+
+
 .title {
     font-size: 24px;
 }
@@ -39,17 +45,7 @@ button{
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
 
-button{
-    background: #FF8282;
-    border-radius: 5px;
-    border: solid #FF8282;
-    color: white;
-    font-size: 18px;
-    width: 166px;
-    height: 50px;
-    margin-top: 13px;
-    filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
-}
+
 
 
 .group-list{
@@ -72,13 +68,40 @@ button{
 
 
 .error_message {
+    position: relative;
+    top: 500px;
+    color: gray;
     font-style: normal;
     font-weight: 600;
     font-size: 15px;
     line-height: 22px;
-    color: rgba(255, 103, 103, 0.53);
     position: relative;
     bottom: 30px;
     margin-bottom: -10px;
     text-align : center;
     }
+
+
+    .mycard{
+        margin-top: 30px;
+        position: absolute;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, 0);
+    
+        top: 50px;
+    
+        width: 332px;
+        height: 530px;
+        background: linear-gradient(144.22deg, #FFCDA5 0%, #EE4D5F 100%);
+        border-radius: 10px;
+        filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
+    }
+
+.all-button{
+    position: relative;
+    top: 600px;
+    left: 20px;
+
+
+}

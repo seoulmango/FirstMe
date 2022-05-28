@@ -202,28 +202,18 @@ button {
     color: white;
     border-radius: 10px;
     font-size: 18px;
-<<<<<<< HEAD
     width: 158px;
-=======
-    width: 166px;
->>>>>>> 072d32bf0ea9347f34e62d2e312f4d51a325f6c1
     height: 50px;
     margin-top: 13px;
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
 
-<<<<<<< HEAD
 .edit-button { 
     background: #D9D9D9;
     border: solid #D9D9D9;
     color: #828181;
     width: 332px;
     filter: drop-shadow(4px 4px 8px #E5E5E5);
-=======
-.edit-button {
-    margin-left: 15px;
-    width: 332px;
->>>>>>> 072d32bf0ea9347f34e62d2e312f4d51a325f6c1
 }
 
 .small-buttons {

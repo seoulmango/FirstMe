@@ -10,7 +10,8 @@
 <div class="title-bar">
     <div>
         <a href="#" onClick="history.back()">
-            < </a>
+            <
+        </a>
     </div>
     <div>{{ group.name }}</div>
     <div class="invisible"> > </div>
@@ -20,7 +21,7 @@
     <div class="alert">
         <p class="alert-title">앗! 그룹 입구가 없어졌어요 😢</p>
         <p class="alert-content">{{ error }}</p>
-        <p class="group-creater">그룹장 : {{ group.creater }}</p>
+        <p class="group-creater">그룹장 : {{ owner_name }}</p>
     </div>
 
 
@@ -45,7 +46,9 @@
         </div>
         <div class="comment2">
             <p>닫기 전에는 해당 QR/링크를 가진 모두가
-            <br>나의 명함을 구경할 수 있어요.</p>
+            <br>그룹에 들어올 수 있어요.
+            <br>그룹 목록에서 다시 만들 수 있으니,
+            <br>모두 들어온 후에는 꼭 닫아주세요!</p>
         </div>
     {% else %}
         <div>

@@ -53,7 +53,7 @@
         </div>
     {% else %}
         <div>
-            <a href="/group/{{ group.pk }}">그룹으로 이동하기</a>
+            <a href="{% url 'group_detail' group.pk %}">그룹으로 이동하기</a>
         </div>
     {% endif %}
     </div>

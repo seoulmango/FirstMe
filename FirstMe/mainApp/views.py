@@ -289,10 +289,6 @@ def edit(request, card_link):
         'profile_pics_women': profile_pics_women
         })
 
-
-# def edit(request):
-#     pass
-
 @login_required(login_url="/registration/login")
 def group_detail(request, group_pk):
     # 그룹장이 초대 링크 다시 열었을 때:

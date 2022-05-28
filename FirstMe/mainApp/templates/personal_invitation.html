@@ -8,7 +8,10 @@
 {% block content %}
 
 {% if error %}
-    {{ error }}
+    <div class="alert">
+        {{ error }}
+    </div>
+
     <p>명함 주인: {{ card.name }}</p>
 
 {% elif card_owner == guest %}

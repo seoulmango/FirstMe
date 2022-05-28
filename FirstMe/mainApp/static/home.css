@@ -27,14 +27,9 @@
 /* 로그인 아님 */
 
 .login{
-    position: absolute;
-    display: block;
-    right:30x;
-    top:40px;
-
-
-    
-    
+    position: relative;
+    bottom: 70px;
+    left: 300px;    
 }
 
 p{

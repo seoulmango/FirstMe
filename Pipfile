@@ -9,4 +9,5 @@ django-allauth = "*"
 
 [dev-packages]
 
-
+[requires]
+python_version = "3.9.8"

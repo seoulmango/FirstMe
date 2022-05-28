@@ -45,8 +45,8 @@ def signup(request):
                 'error': error,
             })
         
-        # # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
-        # else:
+        # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
+
         new_user = User.objects.create_user(
             username = username,
             password = password,
@@ -333,19 +333,24 @@ def group_invitation(request, group_pk, access_code):
 
     img = qrcode.make('group/'+ str(group_pk)+'/'+ str(access_code)+'/')
     qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_H,
-    box_size=10,
-    border=4,
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
     )
     qr.add_data('group/'+str(group_pk)+'/'+str(access_code)+'/')
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    img.save(str(access_code)+".png")
+    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+    img.save(img_path + str(access_code) + ".png")
+    
+    qrcode_pic_route = "qr_codes/"+str(access_code)
     return render(request, "group_invitation.html", {
         'user': user,
         'group': group,
         'img': img,
+        'img_path': img_path,
+        'qrcode_pic_route':qrcode_pic_route,
     })
 
 @login_required(login_url="/registration/login")

@@ -14,10 +14,13 @@
         {% endif %}
 
         <h1>내 계정 만들기</h1>
-
         <input type="text" name="username" placeholder="아이디" required/>
-        <input type="text" name="password" placeholder="비밀번호" required />
-
+        <br>
+        <input type="password" name="password1" id="password1" placeholder="비밀번호" required />
+        <br>
+        <input type="password" name="password2" id="password2" placeholder="비밀번호 확인" required />
+        <br>
+        <button type="button" onclick="test()">비밀번호 확인</button>
         <h1>내 명함 정보</h1>
 
         <h2>Step 1: 필수</h2>

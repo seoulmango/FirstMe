@@ -17,88 +17,126 @@ var alert_select_value = function (select_obj){
 </script> {% endcomment %}
 
 {% block content %}
-<h2>내 카드 수정하기</h2>
+    <div class="title-bar">
+        <div>
+            <a href="#" onClick="history.back()"> < </a> 
+        </div>
+        <div>명함 수정하기</div>
+        <div class="invisible"> > </div>
+    </div>
 
     <form method="POST">
         {% csrf_token %}
 
         {% if error %}
         <p>{{ error }}</p>
-        
         {% endif %}
 
-        <h2>Step 1: 필수</h2>
-        <p>이름</p>
-        <input type="text" name="name" value="{{card.name}}" required/>
-        <p>전화번호</p>
-        <input type="text" name="phone_num" value="{{card.phone_num}}" required/>
-        <p>내 도메인 주소</p>
-        <p>ex) 'gpark'입력 시 -> (/mycard/gpark) 도메인을 가지게 됩니다.</p>
-        <input type="text" name="link" value="{{card.link}}" required/>
-        
+        <h2>Step 1: 필수 항목을 채워주세요!</h2>
+
         <div>
-            <p>프로필 사진 선택하기</p>
-            {% for pic in profile_pics_men %}
+            <h3>프로필 사진</h3>
+            <p>아래 이미지 중 하나를 선택해 주세요</p>
+            <div class="input-box">
+                {% for pic in profile_pics_1 %}
+                <img src="{{pic}}" height="100" width="100">
+                {% endfor %}
+            </div>
+            <br>
+            <div class="input-box">
+                <span>
+                <input type="radio" id="profileChoice1"
+                name="profile_pic" value="1" required>
+                <label for="profileChoice1">1</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice2"
+                name="profile_pic" value="2">
+                <label for="profileChoice2">2</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice3"
+                name="profile_pic" value="3">
+                <label for="profileChoice3">3</label>
+                </span>
+            </div>
+            <br>
+            <div class="input-box">
+                {% for pic in profile_pics_2 %}
+                <img src="{{pic}}" height="100" width="100">
+                {% endfor %}
+            </div>
+            <br>
+            <div class="input-box">
+                <span>
+                <input type="radio" id="profileChoice4"
+                name="profile_pic" value="4" required>
+                <label for="profileChoice4">4</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice5"
+                name="profile_pic" value="5">
+                <label for="profileChoice5">5</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice6"
+                name="profile_pic" value="6">
+                <label for="profileChoice6">6</label>
+                </span>
+            </div>
+            <br>
+            <div class="input-box">
+                {% for pic in profile_pics_3 %}
+                <img src="{{pic}}" height="100" width="100">
+                {% endfor %}
+            </div>
+            <br>
+            <div class="input-box">
+                <span>
+                <input type="radio" id="profileChoice7"
+                name="profile_pic" value="7" required>
+                <label for="profileChoice7">7</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice8"
+                name="profile_pic" value="8">
+                <label for="profileChoice8">8</label>
+                </span>
+                <span>
+                <input type="radio" id="profileChoice9"
+                name="profile_pic" value="9">
+                <label for="profileChoice9">9</label>
+                </span>
+            </div>
+            <br>
+            {% for pic in profile_pics_4 %}
             <img src="{{pic}}" height="100" width="100">
             {% endfor %}
             <br>
-            <input type="radio" id="profileChoice1"
-             name="profile_pic" value="1" required>
-            <label for="profileChoice1">1</label>
-
-            <input type="radio" id="profileChoice2"
-             name="profile_pic" value="2">
-            <label for="profileChoice2">2</label>
-
-            <input type="radio" id="profileChoice3"
-             name="profile_pic" value="3">
-            <label for="profileChoice3">3</label>
 
             <input type="radio" id="profileChoice4"
-             name="profile_pic" value="4">
-            <label for="profileChoice4">4</label>
-
-            <input type="radio" id="profileChoice5"
-             name="profile_pic" value="5">
-            <label for="profileChoice5">5</label>
-            
-            <br>
-
-            {% for pic in profile_pics_women %}
-            <img src="{{pic}}" height="100" width="100">
-            {% endfor %}
-            <br>
-
-            <input type="radio" id="profileChoice6"
-             name="profile_pic" value="6">
-            <label for="profileChoice6">6</label>
-
-            <input type="radio" id="profileChoice7"
-             name="profile_pic" value="7">
-            <label for="profileChoice7">7</label>
-
-            <input type="radio" id="profileChoice8"
-             name="profile_pic" value="8">
-            <label for="profileChoice8">8</label>
-
-            <input type="radio" id="profileChoice9"
-             name="profile_pic" value="9">
-            <label for="profileChoice9">9</label>
-
-            <input type="radio" id="profileChoice10"
              name="profile_pic" value="10">
-            <label for="profileChoice10">10</label>          
+            <label for="profileChoice10">10</label> 
         </div>
 
+        <h3>이름</h3>
+        <input type="text" name="name" value="{{ card.name }}" placeholder="한글 10자, 영문 20자 이내로 입력해 주세요." required/>
+        <h3>전화번호</h3>
+        <input type="text" name="phone_num" value="{{ card.phone_num }}" placeholder="ex) 010-0000-0000" required/>
+        <h3>내 도메인 주소</h3>
+        <p class="ex">ex) 'mycard'입력 시 내 도메인 </p>
+        <input type="text" name="link" value="{{ card.link }}" placeholder="firstme.com/mycard/" required/>
+        <p>영문/숫자만 입력가능합니다.</p>
+
         <br>
-        <h2>Step 2: 선택</h2>
-        <p>한줄소개</p>
-        <input type="text" name="intro" max_length="50" value="{{card.intro}}" />
+        <h2>Step 2: 선택 항목을 채워주세요!</h2>
+        <h3>한 줄 소개</h3>
+        <input type="text" name="intro" max_length="50" placeholder="30자 이내" value="{{ card.intro }}" />
         <br>
-        <p>MBTI</p>
-        <select name="mbti" > 
-            {% comment %} onchange="alert_select_value(this);" {% endcomment %}
-            <option selected >비공개</option>
+        <h3>MBTI</h3>
+        <select name="mbti">
+            <option value="" selected>비공개</option>
+
             <option value="INFJ">INFJ</option>
             <option value="INFP">INFP</option>
             <option value="INTJ">INTJ</option>
@@ -121,7 +159,7 @@ var alert_select_value = function (select_obj){
         </select>
         
         <br>
-        <button type="submit">명함 수정하기</button>
+        <button class="submit" type="submit">명함 수정하기</button>
     </form>
 
 {% endblock content %}

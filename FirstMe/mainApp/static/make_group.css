@@ -22,14 +22,15 @@ form > p{
 }
 
 input {
-
     position: absolute;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 0);
 
-    border: solid 1px; color: #a2a2a2;
-    border-radius: 50px;
+    border-bottom: solid 1px; color: #a2a2a2;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
 
     padding-left: 10px;
 

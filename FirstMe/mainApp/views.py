@@ -96,21 +96,24 @@ def signup(request):
         return redirect('home')
 
     # 프사 예시들
-    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+    profile_pics_1 = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
-        'https://ifh.cc/g/t5qXC4.png',
-        'https://ifh.cc/g/d19LpD.jpg',
-        'https://ifh.cc/g/3gGaD5.png']
+        'https://ifh.cc/g/t5qXC4.png']
         
-    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
-        'https://ifh.cc/g/foD2kg.png',
+    profile_pics_2 = ['https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/3gGaD5.png',
+        'https://ifh.cc/g/QxpyAj.png']
+    
+    profile_pics_3 = ['https://ifh.cc/g/foD2kg.png',
         'https://ifh.cc/g/hLrAhp.png', 
-        'https://ifh.cc/g/6tSO85.png',
-        'https://ifh.cc/g/ql6ZkW.png']
+        'https://ifh.cc/g/6tSO85.png']
+    profile_pics_4 = ['https://ifh.cc/g/ql6ZkW.png']
     
     return render(request, 'registration/signup.html', {
-        'profile_pics_men': profile_pics_men,
-        'profile_pics_women': profile_pics_women
+        'profile_pics_1': profile_pics_1,
+        'profile_pics_2': profile_pics_2,
+        'profile_pics_3': profile_pics_3,
+        'profile_pics_4': profile_pics_4
     })
 
 def login(request):
@@ -270,23 +273,27 @@ def edit(request, card_link):
         )
         return redirect('detail', link)
 
-    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+    profile_pics_1 = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
-        'https://ifh.cc/g/t5qXC4.png',
-        'https://ifh.cc/g/d19LpD.jpg',
-        'https://ifh.cc/g/3gGaD5.png']
+        'https://ifh.cc/g/t5qXC4.png']
         
-    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
-        'https://ifh.cc/g/foD2kg.png',
+    profile_pics_2 = ['https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/3gGaD5.png',
+        'https://ifh.cc/g/QxpyAj.png']
+    
+    profile_pics_3 = ['https://ifh.cc/g/foD2kg.png',
         'https://ifh.cc/g/hLrAhp.png', 
-        'https://ifh.cc/g/6tSO85.png',
-        'https://ifh.cc/g/ql6ZkW.png']
+        'https://ifh.cc/g/6tSO85.png']
+
+    profile_pics_4 = ['https://ifh.cc/g/ql6ZkW.png']
 
     card = Card.objects.get(link=card_link)
     return render(request, 'edit.html', {
         'card': card,
-        'profile_pics_men': profile_pics_men,
-        'profile_pics_women': profile_pics_women
+        'profile_pics_1': profile_pics_1,
+        'profile_pics_2': profile_pics_2,
+        'profile_pics_3': profile_pics_3,
+        'profile_pics_4': profile_pics_4,
         })
 
 @login_required(login_url="/registration/login")
@@ -434,7 +441,6 @@ def group_invitation(request, group_pk, access_code):
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
     img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
     img.save(img_path + str(access_code) + ".png")
-    
     qrcode_pic_route = "qr_codes/"+str(access_code)
     return render(request, "group_invitation.html", {
         'user': user,

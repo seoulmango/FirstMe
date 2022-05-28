@@ -19,7 +19,7 @@ def home(request):
         profile_pics = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png',
-        'https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/86qcpa.png',
         'https://ifh.cc/g/3gGaD5.png',
         'https://ifh.cc/g/QxpyAj.png', 
         'https://ifh.cc/g/foD2kg.png',
@@ -100,7 +100,7 @@ def signup(request):
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png']
         
-    profile_pics_2 = ['https://ifh.cc/g/d19LpD.jpg',
+    profile_pics_2 = ['https://ifh.cc/g/86qcpa.png',
         'https://ifh.cc/g/3gGaD5.png',
         'https://ifh.cc/g/QxpyAj.png']
     
@@ -195,7 +195,7 @@ def detail(request, card_link):
     profile_pics = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png',
-        'https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/86qcpa.png',
         'https://ifh.cc/g/3gGaD5.png',
         'https://ifh.cc/g/QxpyAj.png', 
         'https://ifh.cc/g/foD2kg.png',
@@ -277,7 +277,7 @@ def edit(request, card_link):
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png']
         
-    profile_pics_2 = ['https://ifh.cc/g/d19LpD.jpg',
+    profile_pics_2 = ['https://ifh.cc/g/86qcpa.png',
         'https://ifh.cc/g/3gGaD5.png',
         'https://ifh.cc/g/QxpyAj.png']
     

@@ -10,7 +10,7 @@
 <h2>내 카드 만들기</h2>
 
 {% if error %}
-    {{ error }}
+    <p class="error_message">{{ error }}</p>
 {% else %}
     <form method="POST">
         {% csrf_token %}

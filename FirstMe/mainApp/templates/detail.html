@@ -18,5 +18,6 @@
 <p>MBTI: {{ card.mbti }}</p>
 
 <a href="{% url 'group_list' card.link %}">그룹 리스트</a>
+<a href="{% url 'edit' card.link %}">수정하기</a>
 {% endif %}
 {% endblock content %}

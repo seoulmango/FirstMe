@@ -149,6 +149,25 @@ def detail(request, card_link):
         error = "이 명함의 열람 권한이 없습니다."
         return render(request, "detail.html", {"error":error})
 
+#수정하기(혜영))
+def edit(request, card_link):
+    user = request.user
+    print(card_link, "cardLink")
+    if request.method == 'POST':
+        card = Card.objects.filter(link=card_link)
+        print(card, "queryset")
+        card.update(
+            name = request.POST['name'],
+            owner = request.user,
+            phone_num = request.POST['phone_num'],
+            link = request.POST['link'],
+            intro = request.POST['intro'],
+            mbti = request.POST['mbti'],
+        )
+        return redirect('detail', card_link)
+    card = Card.objects.get(link=card_link)
+    return render(request, 'edit.html', {'card': card})
+
 
 # def edit(request):
 #     pass
@@ -260,3 +279,4 @@ def group_invitation(request, group_pk, access_code):
 
 # def friend_list(request):
 #     pass
+

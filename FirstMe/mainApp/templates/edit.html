@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'edit.css' %}">
+{% endblock css %}
+
+{% comment %} <script>
+var alert_select_value = function (select_obj){
+    // 우선 selectbox에서 선택된 index를 찾고 
+    var selected_index = select_obj.selectedIndex;
+    // 선택된 index의 value를 찾고 
+    var selected_value = select_obj.options[selected_index].value;
+    // 원하는 동작을 수행한다. 여기서는 그냥 alert해주는 식으로만 처리함. 
+    alert(selected_value);
+};
+</script> {% endcomment %}
+
+{% block content %}
+<h2>내 카드 수정하기</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Step 1: 필수</h2>
+        <input type="text" name="name" value="{{card.name}}" required/>
+        <input type="text" name="phone_num" value="{{card.phone_num}}" required/>
+        <input type="text" name="link" value="{{card.link}}" required/>
+        <br>
+        <h2>Step 2: 선택</h2>
+        <input type="text" name="intro" max_length="50" value="{{card.intro}}" />
+        <br>
+        <select name="mbti" > 
+            {% comment %} onchange="alert_select_value(this);" {% endcomment %}
+            <option selected >MBTI 선택하기</option>
+            <option value="INFJ">INFJ</option>
+            <option value="INFP">INFP</option>
+            <option value="INTJ">INTJ</option>
+            <option value="INTP">INTP</option>
+
+            <option value="ISFJ">ISFJ</option>
+            <option value="ISFP">ISFP</option>
+            <option value="ISTJ">ISTJ</option>
+            <option value="ISTP">ISTP</option>
+
+            <option value="ENFJ">ENFJ</option>
+            <option value="ENFP">ENFP</option>
+            <option value="ENTJ">ENTJ</option>
+            <option value="ENTP">ENTP</option>
+
+            <option value="ESFJ">ESFJ</option>
+            <option value="ESFP">ESFP</option>
+            <option value="ESTJ">ESTJ</option>
+            <option value="ESTP">ESTP</option>
+        </select>
+        
+        <br>
+        <button type="submit">명함 수정하기</button>
+    </form>
+
+{% endblock content %}

@@ -53,12 +53,12 @@
 
 button{
     background: #FF8282;
-    border-radius: 30px;
+    border-radius: 5px;
     border: solid #FF8282;
     color: white;
     font-size: 18px;
-    width: 332px;
-    height: 63px;
+    width: 166px;
+    height: 50px;
     margin-top: 13px;
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }

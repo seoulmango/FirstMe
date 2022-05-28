@@ -40,6 +40,20 @@ def home(request):
         })
 
 def signup(request):
+    # 프사 예시들
+    profile_pics_1 = ['https://ifh.cc/g/lP9Q4y.png',
+        'https://ifh.cc/g/DBKnAK.png',
+        'https://ifh.cc/g/t5qXC4.png']
+        
+    profile_pics_2 = ['https://ifh.cc/g/86qcpa.png',
+        'https://ifh.cc/g/3gGaD5.png',
+        'https://ifh.cc/g/QxpyAj.png']
+    
+    profile_pics_3 = ['https://ifh.cc/g/foD2kg.png',
+        'https://ifh.cc/g/hLrAhp.png', 
+        'https://ifh.cc/g/6tSO85.png']
+    profile_pics_4 = ['https://ifh.cc/g/ql6ZkW.png']
+
     if request.method == "POST":
         # 도메인을 벌써 소유한 다른 카드가 있는가?
         link = request.POST['link']
@@ -52,6 +66,10 @@ def signup(request):
             error = "같은 도메인의 소유자가 벌써 있습니다"
             return render(request, 'registration/signup.html', {
                 'error': error,
+                'profile_pics_1': profile_pics_1,
+                'profile_pics_2': profile_pics_2,
+                'profile_pics_3': profile_pics_3,
+                'profile_pics_4': profile_pics_4
             })
         
         # 겹치는 아이디가 있는가?
@@ -59,6 +77,10 @@ def signup(request):
             error = "이미 아이디가 존재합니다"
             return render(request, 'registration/signup.html', {
                 'error': error,
+                'profile_pics_1': profile_pics_1,
+                'profile_pics_2': profile_pics_2,
+                'profile_pics_3': profile_pics_3,
+                'profile_pics_4': profile_pics_4
             })
         
         # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
@@ -93,20 +115,6 @@ def signup(request):
             me = user
         )
         return redirect('home')
-
-    # 프사 예시들
-    profile_pics_1 = ['https://ifh.cc/g/lP9Q4y.png',
-        'https://ifh.cc/g/DBKnAK.png',
-        'https://ifh.cc/g/t5qXC4.png']
-        
-    profile_pics_2 = ['https://ifh.cc/g/86qcpa.png',
-        'https://ifh.cc/g/3gGaD5.png',
-        'https://ifh.cc/g/QxpyAj.png']
-    
-    profile_pics_3 = ['https://ifh.cc/g/foD2kg.png',
-        'https://ifh.cc/g/hLrAhp.png', 
-        'https://ifh.cc/g/6tSO85.png']
-    profile_pics_4 = ['https://ifh.cc/g/ql6ZkW.png']
     
     return render(request, 'registration/signup.html', {
         'profile_pics_1': profile_pics_1,

@@ -438,7 +438,6 @@ def group_invitation(request, group_pk, access_code):
     # img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
     img.save(img_path + str(access_code) + ".png")
-    
     qrcode_pic_route = "qr_codes/"+str(access_code)
     return render(request, "group_invitation.html", {
         'user': user,

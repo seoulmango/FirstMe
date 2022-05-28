@@ -17,7 +17,8 @@
         <div>
             <a href="{% url 'logout' %}">로그아웃</a>
         </div>
-        <div>
+        <div OnClick="location.href ='{% url 'detail' card.link%}' " style="cursor:pointer;"
+        출처: https://yoo-hyeok.tistory.com/47 [유혁의 개발 스토리:티스토리]>
             <img src="{{ profile_pic }}" height='200' width='200'/>
             <p>이름: {{ card.name }}</p>
             <p>전화번호: {{ card.phone_num }}</p>

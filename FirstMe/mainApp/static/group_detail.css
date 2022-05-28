@@ -27,6 +27,7 @@
 }
 
 button{
+    
     background: #FF8282;
     border-radius: 5px;
     border: solid #FF8282;
@@ -37,6 +38,19 @@ button{
     margin-top: 13px;
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
+
+button{
+    background: #FF8282;
+    border-radius: 5px;
+    border: solid #FF8282;
+    color: white;
+    font-size: 18px;
+    width: 166px;
+    height: 50px;
+    margin-top: 13px;
+    filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
+}
+
 
 .group-list{
     font-weight: 400;
@@ -67,4 +81,4 @@ button{
     bottom: 30px;
     margin-bottom: -10px;
     text-align : center;
-}
+    }

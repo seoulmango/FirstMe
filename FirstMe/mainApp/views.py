@@ -45,34 +45,34 @@ def signup(request):
                 'error': error,
             })
         
-        # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
-        else:
-            new_user = User.objects.create_user(
-                username = username,
-                password = password,
+        # # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
+        # else:
+        new_user = User.objects.create_user(
+            username = username,
+            password = password,
+        )
+
+        auth.login(request,new_user)
+
+        user = request.user
+        name = request.POST['name']
+        phone_num = request.POST['phone_num']
+        link = request.POST['link']
+        intro = request.POST['intro']
+        mbti = request.POST['mbti']
+        profile_pic = request.POST['profile_pic']
+
+        
+        new_card = Card.objects.create(
+            owner = user,
+            link = link,
+            name=name,
+            phone_num=phone_num,
+            intro=intro,
+            mbti=mbti,
+            profile_pic = profile_pic,
             )
-
-            auth.login(request,new_user)
-
-            user = request.user
-            name = request.POST['name']
-            phone_num = request.POST['phone_num']
-            link = request.POST['link']
-            intro = request.POST['intro']
-            mbti = request.POST['mbti']
-            profile_pic = request.POST['profile_pic']
-
-            
-            new_card = Card.objects.create(
-                owner = user,
-                link = link,
-                name=name,
-                phone_num=phone_num,
-                intro=intro,
-                mbti=mbti,
-                profile_pic = profile_pic,
-                )
-            return redirect('home')
+        return redirect('home')
 
     # 프사 예시들
     profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
@@ -184,6 +184,55 @@ def detail(request, card_link):
     else:
         error = "이 명함의 열람 권한이 없습니다."
         return render(request, "detail.html", {"error":error})
+
+#수정하기(혜영))
+def edit(request, card_link):
+    user = request.user
+    card = Card.objects.get(link=card_link)
+    if request.method == 'POST':
+        link = request.POST['link']
+        found_link = Card.objects.filter(link = link)
+        
+
+        if card.link == link:
+            pass
+        elif found_link:
+            error = "같은 도메인의 소유자가 벌써 있습니다"
+            return render(request, 'edit.html', {
+                'error': error,
+            })
+
+        card = Card.objects.filter(link=card_link)
+        print(card, "queryset")
+        card.update(
+            name = request.POST['name'],
+            owner = request.user,
+            phone_num = request.POST['phone_num'],
+            link = request.POST['link'],
+            intro = request.POST['intro'],
+            mbti = request.POST['mbti'],
+            profile_pic = request.POST['profile_pic'],
+        )
+        return redirect('detail', link)
+
+    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+        'https://ifh.cc/g/DBKnAK.png',
+        'https://ifh.cc/g/t5qXC4.png',
+        'https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/3gGaD5.png']
+        
+    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
+        'https://ifh.cc/g/foD2kg.png',
+        'https://ifh.cc/g/hLrAhp.png', 
+        'https://ifh.cc/g/6tSO85.png',
+        'https://ifh.cc/g/ql6ZkW.png']
+
+    card = Card.objects.get(link=card_link)
+    return render(request, 'edit.html', {
+        'card': card,
+        'profile_pics_men': profile_pics_men,
+        'profile_pics_women': profile_pics_women
+        })
 
 
 # def edit(request):

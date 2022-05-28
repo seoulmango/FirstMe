@@ -9,7 +9,6 @@
 
 
 {% block content %}
-
 <div class="title-bar">
     <div>
         <a href="{% url 'home' %}"> < </a> 
@@ -22,12 +21,12 @@
     {{ error }}
 {% else %}
 <!-- 1대1 친추 링크 열려있을 때 경고문 -->
-{% if open_link %}
 <div class="alert">
+{% if open_link %}
     <p>명함 공유 링크가 열려있습니다. 보안을 위해 닫아주세요!</p>
     <a href="/{{ card.link }}/{{ card.invitation_link }}">공유 링크 닫으러 가기</a>
+    {% endif %}
 </div>
-{% endif %}
 
 <div class="container">
     <div class="mycard">
@@ -65,7 +64,6 @@
         </form>
     </div>
 </div>
-
 
 {% endif %}
 {% endblock content %}

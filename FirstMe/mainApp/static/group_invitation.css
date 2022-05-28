@@ -26,15 +26,14 @@
     padding: 0 25px;
 
     top: 25px;
+
+    color: #958D8D;
 }
 
 .alert-title {
     color: #FF8282;
 }
 
-.alert-content, .group-creater {
-    color:#958D8D;
-}
 
 
 /* 카드 */

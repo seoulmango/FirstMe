@@ -439,16 +439,9 @@ def group_invitation(request, group_pk, access_code):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
-<<<<<<< HEAD
     # img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
     img_path = "/Users/jinny/Desktop/FirstMe/FirstMe/FirstMe/mainApp/static/qr_codes/"
-=======
-<<<<<<< HEAD
-    img_path = "/Users/eomhyeyeong/Desktop/clubs/NLplus2/FristMe0529/FirstMe/FirstMe/mainApp/static/qr_codes/"
-=======
-    img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
->>>>>>> 6d58d0131f2e97d2f4b3764ead0059e4e0c8fefe
->>>>>>> 3b4cad5c62e8a605aae2bf6baa8748fa6121a191
+
     img.save(img_path + str(access_code) + ".png")
     qrcode_pic_route = "qr_codes/"+str(access_code)
     return render(request, "group_invitation.html", {
@@ -511,12 +504,9 @@ def personal_invitation(request, card_link, access_code):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
-<<<<<<< HEAD
     # img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
     img_path = "/Users/jinny/Desktop/FirstMe/FirstMe/FirstMe/mainApp/static/qr_codes/"
-=======
-    img_path = "/Users/eomhyeyeong/Desktop/clubs/NLplus2/FristMe0529/FirstMe/FirstMe/mainApp/static/qr_codes/"
->>>>>>> 3b4cad5c62e8a605aae2bf6baa8748fa6121a191
+
     img.save(img_path + str(access_code) + ".png")
     
     qrcode_pic_route = "qr_codes/"+str(access_code)

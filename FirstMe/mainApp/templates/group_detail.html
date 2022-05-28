@@ -11,7 +11,7 @@
     
     <div class="title-bar">
         
-        <div class="title"><p>{{group.name}}</p></div>
+        <div class="title"><p class="group_name">그룹명 : {{group.name}}</p></div>
         <div class="invisible"> </div>
     </div>
 
@@ -20,7 +20,7 @@
     {% if is_creater %}
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">그룹 초대 링크 생성하기</button>
+        <button type="submit">그룹 초대 링크 <br>생성하기</button>
     </form>
     {% endif %}
 

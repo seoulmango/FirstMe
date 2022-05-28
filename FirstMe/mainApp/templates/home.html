@@ -14,7 +14,9 @@
         <div>
             <h1>FIRST ME</h1>
         </div>
-
+        <div>
+            <a href="{% url 'logout' %}">로그아웃</a>
+        </div>
         <div>
             <img src="{{ profile_pic }}" height='200' width='200'/>
             <p>이름: {{ card.name }}</p>

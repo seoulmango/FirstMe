@@ -10,10 +10,27 @@
 {% if error %}
 {{ error }}
 {% else %}
-<ul>
+
+<div class="title-bar">
+    <div>
+        <a href="{% url 'home' %}"> < </a> 
+    </div>
+    <div class="title">그룹 목록</div>
+    <div class="invisible"> > </div>
+</div>
+
+<div class="groups">
     {% for group in groups %}
-    <li><a href="{% url 'group_detail' group.pk %}">{{ group.name }}</a></li>
+    <div class="hl"></div>
+    <div class="group">
+        <a href="{% url 'group_detail' group.pk %}">{{ group.name }}</a>
+    </div>
     {% endfor %}
-</ul>
+</div>
+<a href="{% url 'friend_list' card.link %}">
+    <button type="submit">
+        전체 목록으로
+    </button>
+</a>
 {% endif %}
 {% endblock content %}

@@ -45,7 +45,7 @@ def signup(request):
         link = request.POST['link']
         found_link = Card.objects.filter(link = link)
         username = request.POST['username']
-        password = request.POST['password']
+        password = request.POST['password1']
         found_user = User.objects.filter(username=username)
 
         if found_link:
@@ -289,10 +289,6 @@ def edit(request, card_link):
         'profile_pics_women': profile_pics_women
         })
 
-
-# def edit(request):
-#     pass
-
 @login_required(login_url="/registration/login")
 def group_detail(request, group_pk):
     # 그룹장이 초대 링크 다시 열었을 때:
@@ -436,7 +432,8 @@ def group_invitation(request, group_pk, access_code):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
-    img_path = '/Users/jinny/Desktop/FirstMe/FirstMe/FirstMe/mainApp/static/qr_codes/'
+    # img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
+    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
     img.save(img_path + str(access_code) + ".png")
     qrcode_pic_route = "qr_codes/"+str(access_code)
     return render(request, "group_invitation.html", {
@@ -498,6 +495,8 @@ def personal_invitation(request, card_link, access_code):
     qr.add_data(str(card.link)+'/'+ str(access_code))
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+    # img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
     img.save(img_path + str(access_code) + ".png")
     

@@ -7,14 +7,15 @@
 
     
 }
-.logo {
+.logo-bar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-      
+    margin-left: 23px;
+    margin-right: 23px;
 }
 
-.logo > p{
+.logo-bar > p{
     font-weight: 900;
     font-size: 32px;
     line-height: 38.4px;
@@ -26,13 +27,11 @@
 
 /* 로그인 아님 */
 
-.login{
-    position: relative;
-    bottom: 70px;
-    left: 300px;    
+.invisible{
+    color:transparent;
 }
 
-p{
+.intro{
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
@@ -41,7 +40,6 @@ p{
     color: rgba(28, 26, 26, 0.53);  
     position: relative;
     bottom:10px;
-
 }
 
 button{
@@ -66,4 +64,83 @@ a {
     font-weight: 600;
 }  
 
+
+
+
+/* 로그인일때 */
+.top-bar > p{
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 38.4px;
+    background: linear-gradient(144.22deg, #FFBF8B 0%, #EE4D5F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+}
+
+.top-bar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.invisible {
+    color: transparent;
+}
+
+.entire-container{
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mycard{
+    margin-right:15px;
+    width: 332px;
+    height: 530px;
+    background: linear-gradient(144.22deg, #FFCDA5 0%, #EE4D5F 100%);
+    border-radius: 10px;
+    filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
+}
+
+
+.face{
+    position: relative;
+    left:67px;
+    z-index: 2;
+    top:45px;
+}
+
+.circle{
+    position:relative;
+    left:50px;
+    bottom:170px;
+    z-index:1;
+
+}
+.card-name{
+font-weight: 700;
+font-size: 24px;
+line-height: 29px;
+}
+.card-content{
+    position: relative;
+    left:20px;
+    bottom:150px;
+    color:  #FFFFFF;
+    
+}
+
+.phone-num{
+    margin-bottom:27px;
+}
+
+.card-intro{
+    margin-bottom:27px;
+}
+
+.bottom-button{
+    margin-top: 16px;
+}
 

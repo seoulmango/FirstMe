@@ -284,19 +284,26 @@ def group_invitation(request, group_pk, access_code):
 
     img = qrcode.make('group/'+ str(group_pk)+'/'+ str(access_code)+'/')
     qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_H,
-    box_size=10,
-    border=4,
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
     )
     qr.add_data('group/'+str(group_pk)+'/'+str(access_code)+'/')
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    img.save(str(access_code)+".png")
+    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+    test = img_path + str(access_code) + ".png"
+    # print(test, "test")
+    img.save(img_path + str(access_code) + ".png")
+    
     return render(request, "group_invitation.html", {
         'user': user,
         'group': group,
         'img': img,
+        'test': test,
+        'img_path': img_path,
+        'access_code':access_code,
     })
 
 @login_required(login_url="/registration/login")

@@ -17,16 +17,38 @@
 <p>명함의 친구 공유 링크가 열려있습니다. 보안을 위해 닫아주세요</p>
 <a href="/{{ card.link }}/{{ card.invitation_link }}">친구 공유 링크 닫으러 가기</a>
 {% endif %}
-<h1>명함 페이지</h1>
-<img src="{{ profile_pic }}" height='200' width='200'/>
-<p>이름: {{ card.name }}</p>
-<p>전화번호: {{ card.phone_num }}</p>
-<p>한 줄 소개: {{ card.intro }}</p>
-<p>MBTI: {{ card.mbti }}</p>
-<a href="{% url 'edit' card.link %}">수정하기</a>
-<a href="{% url 'group_list' card.link %}">그룹 리스트</a>
-<a href="{% url 'friend_list' card.link %}">친구 리스트</a>
-<a href="{% url 'make_group' %}">그룹 만들기</a>
+
+<div class="container">
+        <h1>{{ card.name }}</h1>
+    <div class="mycard">
+        <div class="profile-img">
+            <div class="face"><img src="{{ profile_pic }}" height='200' width='200'/></div>
+            <div class="circle"><img src="https://ifh.cc/g/hlr225.png"></div>
+        </div>
+
+        <div class="card-content">
+            <p class="card-name">{{ card.name }}</p>
+            <p class="phone-num">📞 &nbsp;&nbsp;{{ card.phone_num }}</p>
+            <p class="card-intro">💬&nbsp;&nbsp; {{ card.intro }}</p>
+            <p class="card-mbti">✨&nbsp;&nbsp; {{ card.mbti }}</p>
+        </div>
+
+        <div class="comment">
+            <p>명함을 눌러서 뒷면의 QR코드로 손쉽게 명함을 공유해 보세요!</p>
+        </div>
+    </div>
+
+</div>
+
+    
+<a href="{% url 'edit' card.link %}">
+    <button type="submit">수정하기</button>
+</a>
+<!-- <a href="{% url 'group_list' card.link %}">그룹 리스트</a>
+<a href="{% url 'friend_list' card.link %}">친구 리스트</a> -->
+<a href="{% url 'make_group' %}">
+    <button type="submit">그룹 만들기</button>
+</a>
 <form method="POST">
     {% csrf_token %}
     <button type="submit">친구 추가하기</button>

@@ -89,6 +89,10 @@ def signup(request):
             profile_pic = profile_pic,
             )
         
+        # 유저의 friendlist 만들기
+        Friendlists.objects.create(
+            me = user
+        )
         return redirect('home')
 
     # 프사 예시들
@@ -204,6 +208,7 @@ def detail(request, card_link):
         })
     # 방문 유저와 명함이 같은 그룹에 있을 때
     user_groups = user.mygroups.all()
+    user_friends = user.myfriends.all()
     access = False
 
     for group in user_groups:
@@ -211,7 +216,11 @@ def detail(request, card_link):
         if card.owner in members:
             access = True
     
-    if access:
+    # 방문 유저가 명함의 친구일 때
+    if card.owner in user_friends:
+        access = True
+
+    if access is True:
         return render(request, "detail.html", {
             "card": card,
             "profile_pic":profile_pic,
@@ -443,7 +452,12 @@ def personal_invitation(request, card_link, access_code):
     img.save(img_path + str(access_code) + ".png")
     
     qrcode_pic_route = "qr_codes/"+str(access_code)
-    return render(request, 'personal_invitation.html', {'qrcode_pic_route': qrcode_pic_route})
+    return render(request, 'personal_invitation.html',{
+        'qrcode_pic_route': qrcode_pic_route,
+        'card': card,
+        'guest': guest,
+        'card_owner': card_owner
+        })
 
 @login_required(login_url="/registration/login")
 def friend_list(request, card_link):

@@ -17,14 +17,13 @@
 
     <img src="{% static qrcode_pic_route %}.png">
     
-    {% if user == card.owner %}
-        <form method="POST">
-            {% csrf_token %}
-            <button submit>그룹 초대 닫기</button>
-        </form>
+    <form method="POST">
+        {% csrf_token %}
+        <button submit>그룹 초대 닫기</button>
+    </form>
 
-    {% else %}
-    <a href="{% url 'detail' card.link %}">친구 명함으로 이동하기</a>
+{% else %}
+<a href="{% url 'detail' card.link %}">친구 명함으로 이동하기</a>
 {% endif %}
 
 {% endblock content %}

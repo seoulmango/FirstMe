@@ -45,34 +45,34 @@ def signup(request):
                 'error': error,
             })
         
-        # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
-        else:
-            new_user = User.objects.create_user(
-                username = username,
-                password = password,
+        # # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
+        # else:
+        new_user = User.objects.create_user(
+            username = username,
+            password = password,
+        )
+
+        auth.login(request,new_user)
+
+        user = request.user
+        name = request.POST['name']
+        phone_num = request.POST['phone_num']
+        link = request.POST['link']
+        intro = request.POST['intro']
+        mbti = request.POST['mbti']
+        profile_pic = request.POST['profile_pic']
+
+        
+        new_card = Card.objects.create(
+            owner = user,
+            link = link,
+            name=name,
+            phone_num=phone_num,
+            intro=intro,
+            mbti=mbti,
+            profile_pic = profile_pic,
             )
-
-            auth.login(request,new_user)
-
-            user = request.user
-            name = request.POST['name']
-            phone_num = request.POST['phone_num']
-            link = request.POST['link']
-            intro = request.POST['intro']
-            mbti = request.POST['mbti']
-            profile_pic = request.POST['profile_pic']
-
-            
-            new_card = Card.objects.create(
-                owner = user,
-                link = link,
-                name=name,
-                phone_num=phone_num,
-                intro=intro,
-                mbti=mbti,
-                profile_pic = profile_pic,
-                )
-            return redirect('home')
+        return redirect('home')
 
     # 프사 예시들
     profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
@@ -184,6 +184,55 @@ def detail(request, card_link):
     else:
         error = "이 명함의 열람 권한이 없습니다."
         return render(request, "detail.html", {"error":error})
+
+#수정하기(혜영))
+def edit(request, card_link):
+    user = request.user
+    card = Card.objects.get(link=card_link)
+    if request.method == 'POST':
+        link = request.POST['link']
+        found_link = Card.objects.filter(link = link)
+        
+
+        if card.link == link:
+            pass
+        elif found_link:
+            error = "같은 도메인의 소유자가 벌써 있습니다"
+            return render(request, 'edit.html', {
+                'error': error,
+            })
+
+        card = Card.objects.filter(link=card_link)
+        print(card, "queryset")
+        card.update(
+            name = request.POST['name'],
+            owner = request.user,
+            phone_num = request.POST['phone_num'],
+            link = request.POST['link'],
+            intro = request.POST['intro'],
+            mbti = request.POST['mbti'],
+            profile_pic = request.POST['profile_pic'],
+        )
+        return redirect('detail', link)
+
+    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+        'https://ifh.cc/g/DBKnAK.png',
+        'https://ifh.cc/g/t5qXC4.png',
+        'https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/3gGaD5.png']
+        
+    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
+        'https://ifh.cc/g/foD2kg.png',
+        'https://ifh.cc/g/hLrAhp.png', 
+        'https://ifh.cc/g/6tSO85.png',
+        'https://ifh.cc/g/ql6ZkW.png']
+
+    card = Card.objects.get(link=card_link)
+    return render(request, 'edit.html', {
+        'card': card,
+        'profile_pics_men': profile_pics_men,
+        'profile_pics_women': profile_pics_women
+        })
 
 
 # def edit(request):
@@ -299,5 +348,46 @@ def group_invitation(request, group_pk, access_code):
         'img': img,
     })
 
-# def friend_list(request):
-    # pass
+@login_required(login_url="/registration/login")
+def friend_list(request, card_link):
+    user = request.user
+    card = Card.objects.get(link=card_link)
+    # 이 명함의 주인일 때
+    if not card.owner == user:
+        error = "이 친구 목록의 열람 권한이 없습니다."
+        return render(request, "friend_list.html", {
+            'error': error
+        })
+    else:
+        groups = user.mygroups.all()        
+        all_cards_list = []
+        all_link_list = []
+
+        # 카드의 모든 그룹에 있는 멤버들 전부 뽑아오기
+        for group in groups:
+            members = group.members.all()
+            for member in members:
+                friend_card = Card.objects.get(owner=member)
+                if friend_card == card:
+                    pass
+                else:
+                    all_cards_list.append([str(friend_card.name), str(friend_card.phone_num)])
+                    all_link_list.append(str(friend_card.link))
+        
+        # 이 명함의 주인일 때
+        if card.owner == user:
+            return render(request, "friend_list.html",{
+                "card":card,
+                'user':user,
+                'groups':groups,
+                'all_cards_list': all_cards_list,
+                'all_link_list':all_link_list
+            })
+        else:
+            error = "이 명함 그룹의 열람 권한이 없습니다."
+            return render(request, "friend_list.html",{
+                "error": error,
+                "card":card,
+                'user':user,
+                'groups':groups,
+            })

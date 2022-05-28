@@ -33,7 +33,7 @@ urlpatterns = [
 
     # 내 명함 디테일 페이지
     path('mycard/<slug:card_link>/', views.detail, name="detail"),
-    # # 내 명함 수정 페이지(혜영)
+    # 내 명함 수정 페이지
     path('mycard/<slug:card_link>/edit', views.edit, name="edit"),
     # 그룹 디테일
     path('group/<int:group_pk>/', views.group_detail, name="group_detail"),
@@ -48,4 +48,5 @@ urlpatterns = [
     path('<slug:card_link>/group_list/', views.group_list, name="group_list"),
     # 친구 목록
     path('<slug:card_link>/friend_list/', views.friend_list, name="friend_list"),
+
 ]

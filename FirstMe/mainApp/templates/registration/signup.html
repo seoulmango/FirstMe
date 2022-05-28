@@ -28,9 +28,12 @@
         <p>내 도메인 주소</p>
         <p>ex) 'gpark'입력 시 -> (/mycard/gpark) 도메인을 가지게 됩니다.</p>
         <input type="text" name="link" placeholder="내 도메인 주소" required/>
-
         <div>
             <p>프로필 사진 선택하기</p>
+            {% for pic in profile_pics_men %}
+            <img src="{{pic}}" height="100" width="100">
+            {% endfor %}
+            <br>
             <input type="radio" id="profileChoice1"
              name="profile_pic" value="1">
             <label for="profileChoice1">1</label>
@@ -50,6 +53,13 @@
             <input type="radio" id="profileChoice5"
              name="profile_pic" value="5">
             <label for="profileChoice5">5</label>
+            
+            <br>
+
+            {% for pic in profile_pics_women %}
+            <img src="{{pic}}" height="100" width="100">
+            {% endfor %}
+            <br>
 
             <input type="radio" id="profileChoice6"
              name="profile_pic" value="6">
@@ -69,11 +79,7 @@
 
             <input type="radio" id="profileChoice10"
              name="profile_pic" value="10">
-            <label for="profileChoice10">10</label>
-
-            <input type="radio" id="profileChoice11"
-             name="profile_pic" value="11">
-            <label for="profileChoice11">11</label>            
+            <label for="profileChoice10">10</label>          
         </div>
 
         <br>

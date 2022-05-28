@@ -31,7 +31,7 @@
         <div OnClick="location.href ='{% url 'detail' card.link %}' " style="cursor:pointer;">
             <div class="profile-img">
                 <div class="face"><img src="{{ profile_pic }}" height='200' width='200'/></div>
-                <div class="circle"><img src="https://ifh.cc/g/hlr225.png"></div>
+                <div class="circle"><img src="https://ifh.cc/g/hlr225.png" height='200' width='200'></div>
             </div>
             
             <div class="card-content">
@@ -45,12 +45,12 @@
            
         </div>
     </div>
-    <div>
+    <div class="buttons">
         <a href="{% url 'friend_list' card.link %}">
-            <button type="submit"> 전체목록</button>
-
+            <button type="submit">전체 목록</button>
+        </a>
         <a href="{% url 'group_list' card.link %}">
-            <button type="submit"> 그룹리스트</button>
+            <button type="submit">그룹 목록</button>
         </a>
     </div>
 

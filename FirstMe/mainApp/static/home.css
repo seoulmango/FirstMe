@@ -34,6 +34,12 @@
     color:transparent;
 }
 
+.login{
+    margin: auto;
+    position: relative;
+    left: 50px;
+}
+
 .intro{
     font-weight: 400;
     font-size: 18px;
@@ -51,10 +57,14 @@ button{
     border: solid #FF8282;
     color: white;
     font-size: 18px;
-    width: 181px;
-    height: 43px;
+    width: 166px;
+    height: 50px;
     margin-top: 13px;
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
+}
+
+.buttons{
+    margin-left: 14px;
 }
 
 .ex_image{
@@ -107,26 +117,26 @@ a {
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
 
-
 .face{
     position: relative;
     left:67px;
-    z-index: 2;
     top:45px;
+    z-index: 2;
 }
 
 .circle{
     position:relative;
-    left:50px;
-    bottom:170px;
+    left:67px;
+    bottom:150px;
     z-index:1;
+}
 
-}
 .card-name{
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
 }
+
 .card-content{
     position: relative;
     left:20px;

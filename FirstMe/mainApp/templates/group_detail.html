@@ -7,36 +7,69 @@
 
 
 {% block content %}
+<div class=container>
+    
+    <div class="title-bar">
+        <div>
+            <a href="{% url 'home' %}"> < </a> 
+        </div>
+        <div class="title"><p>{{group.name}}</p></div>
+        <div class="invisible"> > </div>
+    </div>
 
-<!-- 유저가 그룹 열람 권한이 없을 때 -->
-{% if error %}
-    <p>{{ error }}</p>
-<!-- 유저가 그룹 열람 권한이 있을 때 -->
-{% else %}
-<!-- 링크가 열려있고, 방문자가 creater일 때 -->
-    {% if open_link %}
-    <p>그룹의 초대 링크가 아직 열려 있습니다. 보안을 위해 닫아주세요</p>
-    <p>
-        <a href="http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/">
-            초대링크로 이동하기
-        </a>
-    </p>
-    {% endif %}
 
+    
     {% if is_creater %}
     <form method="POST">
         {% csrf_token %}
         <button type="submit">그룹 초대 링크 생성하기</button>
     </form>
     {% endif %}
+<<<<<<< HEAD
+
+    <div class="group-list">
+        <ul>
+            {% for card in member_card %}
+            <li>
+                <a href="/mycard/{{card.link}}">{{ card.name }}</a> | {{ card.phone_num }}
+            </li>
+            {% endfor %}
+            </ul>
+
+    </div>
+    
+    
+
+<!-- 유저가 그룹 열람 권한이 없을 때 -->
+{% if error %}
+<p>{{ error }}</p>
+<!-- 유저가 그룹 열람 권한이 있을 때 -->
+{% else %}
+<!-- 링크가 열려있고, 방문자가 creater일 때 -->
+{% if open_link %}
+<p>그룹의 초대 링크가 아직 열려 있습니다. 보안을 위해 닫아주세요</p>
+<p>
+    <a href="http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/">
+        초대링크로 이동하기
+    </a>
+</p>
+{% endif %}
+
+=======
 <h1>{{group.name}}</h1>
 <ul>
     {% for card in member_card %}
     <li>
-        <a href="/mycard/{{card.link}}">{{ card.name }}</a> | {{ card.phone_num }}
+        <a href="{% url 'detail' card.link %}">{{ card.name }}</a> | {{ card.phone_num }}
     </li>
     {% endfor %}
 </ul>
+>>>>>>> 9b516fc720c1acb8a99921eebea68cf7989d4ccd
 {% endif %}
-<a href="{% url 'home' %}">홈</a>
+
+
+    <a href="{% url 'home' %}">홈</a>
+
+</div>
+
 {% endblock content %}

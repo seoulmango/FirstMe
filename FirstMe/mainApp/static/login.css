@@ -41,20 +41,12 @@ a{
     margin-bottom:18px;
 }
 
-<<<<<<< HEAD
 input {
     
 width:320px;
 height:50px;
 border: solid 1px; color: #a2a2a2;
 border-radius: 50px;
-=======
-input[type=text] {
-    width:320px;
-    height:50px;
-    border: solid 1px; color: #a2a2a2;
-    border-radius: 50px;
->>>>>>> c93a8e6d2e72d516df26f80630570562dc481826
 }
 
 

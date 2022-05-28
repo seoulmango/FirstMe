@@ -9,53 +9,63 @@
 
 
 {% block content %}
-{% if error %}
-    {{ error }}
-{% else %}
-<!-- 1대1 친추 링크 열려있을 때 경고문 -->
-{% if open_link %}
-<p>명함의 친구 공유 링크가 열려있습니다. 보안을 위해 닫아주세요</p>
-<a href="{% url 'personal_invitation' card.link card.invitation_link %}">친구 공유 링크 닫으러 가기</a>
-<br>
-{% endif %}
 
 <div class="title-bar">
     <div>
         <a href="{% url 'home' %}"> < </a> 
     </div>
-    <div class="title">{{card.name}}</div>
+    <div>{{ card.name }}</div>
     <div class="invisible"> > </div>
 </div>
+
+{% if error %}
+    {{ error }}
+{% else %}
+<!-- 1대1 친추 링크 열려있을 때 경고문 -->
+{% if open_link %}
+<div class="alert">
+    <p>명함 공유 링크가 열려있습니다. 보안을 위해 닫아주세요!</p>
+    <a href="/{{ card.link }}/{{ card.invitation_link }}">공유 링크 닫으러 가기</a>
+</div>
+{% endif %}
 
 <div class="container">
     <div class="mycard">
         <div class="profile-img">
-            <div class="face"><img src="{{ profile_pic }}" height='200' width='200'/></div>
-            <div class="circle"><img src="https://ifh.cc/g/hlr225.png"></div>
+            <div class="face">
+                <img src="{{ profile_pic }}" height='200' width='200'/>
+            </div>
+            <div class="circle">
+                <img src="https://ifh.cc/g/hlr225.png">
+            </div>
+        </div>
+        <div class="card-name">
+            <p>{{ card.name }}</p>
         </div>
 
         <div class="card-content">
-            <p class="card-name">{{ card.name }}</p>
             <p class="phone-num">📞 &nbsp;&nbsp;{{ card.phone_num }}</p>
             <p class="card-intro">💬&nbsp;&nbsp; {{ card.intro }}</p>
             <p class="card-mbti">✨&nbsp;&nbsp; {{ card.mbti }}</p>
         </div>
 
     </div>
+    <div>
+        <a href="{% url 'edit' card.link %}">
+            <button class="edit-button" type="submit">수정하기</button>
+        </a>
+    </div>
+    <div class="small-buttons">
+        <a href="{% url 'make_group' %}">
+            <button class="group-button" type="submit">그룹 만들기</button>
+        </a>
+        <form method="POST">
+            {% csrf_token %}
+            <button class="friend-button" type="submit">명함 공유하기</button>
+        </form>
+    </div>
 </div>
 
-<a href="{% url 'edit' card.link %}">
-    <button class="edit-button" type="submit">수정하기</button>
-</a>
-<div class="small-buttons">
-    <a href="{% url 'make_group' %}">
-        <button class="group-button" type="submit">그룹 만들기</button>
-    </a>
-    <form method="POST">
-        {% csrf_token %}
-        <button class="friend-button" type="submit">친구 추가하기</button>
-    </form>
-</div>
 
 {% endif %}
 {% endblock content %}

@@ -19,8 +19,24 @@ def home(request):
         'user':user,
         'card':card,
         })
+
+            # 프사 예시들
+    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+        'https://ifh.cc/g/DBKnAK.png',
+        'https://ifh.cc/g/t5qXC4.png',
+        'https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/3gGaD5.png']
+        
+    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
+        'https://ifh.cc/g/foD2kg.png',
+        'https://ifh.cc/g/hLrAhp.png', 
+        'https://ifh.cc/g/6tSO85.png',
+        'https://ifh.cc/g/ql6ZkW.png']
+
     return render(request, 'home.html', {
         'user':user,
+        'profile_pics_men': profile_pics_men,
+        'profile_pics_women': profile_pics_women,
         })
 
 def signup(request):

@@ -17,10 +17,10 @@
     <div class="navbar__menu__item"><a href="{% url 'logout' %}">로그아웃</a></div>
     {% else %}
     <div class="navbar__menu__item"><a href="{% url 'login' %}">로그인</a></div>
-    <div class="navbar__menu__item"><a href="{% url 'signup' %}">회원가입</a></div>
+
     {% endif %}
     <div class="navbar__menu__item"><a href="{% url 'home' %}">홈</a></div>
-    <div class="navbar__menu__item"><a href="{% url 'make_group' %}">그룹 만들기</a></div>
+
 
     {% block title %} {% endblock title %}
 

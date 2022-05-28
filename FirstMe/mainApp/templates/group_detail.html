@@ -11,9 +11,24 @@
 <!-- 유저가 그룹 열람 권한이 없을 때 -->
 {% if error %}
     <p>{{ error }}</p>
-
 <!-- 유저가 그룹 열람 권한이 있을 때 -->
 {% else %}
+<!-- 링크가 열려있고, 방문자가 creater일 때 -->
+    {% if open_link %}
+    <p>그룹의 초대 링크가 아직 열려 있습니다. 보안을 위해 닫아주세요</p>
+    <p>
+        <a href="http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/">
+            초대링크로 이동하기
+        </a>
+    </p>
+    {% endif %}
+
+    {% if is_creater %}
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">그룹 초대 링크 생성하기</button>
+    </form>
+    {% endif %}
 <h1>{{group.name}}</h1>
 <ul>
     {% for card in member_card %}
@@ -23,5 +38,5 @@
     {% endfor %}
 </ul>
 {% endif %}
-
+<a href="{% url 'home' %}">홈</a>
 {% endblock content %}

@@ -30,15 +30,14 @@ urlpatterns = [
     path('registration/logout/', views.logout, name="logout"),
     # 내 명함 만들기 페이지 (1, 2로 나뉘어서 필수와 선택 보이게 할 것)
     path('make/', views.make, name="make"),
-
     # 내 명함 디테일 페이지
     path('mycard/<slug:card_link>/', views.detail, name="detail"),
     # 내 명함 수정 페이지
     path('mycard/<slug:card_link>/edit', views.edit, name="edit"),
     # 그룹 디테일
     path('group/<int:group_pk>/', views.group_detail, name="group_detail"),
-    # # 내 명함 1대1 초대 페이지
-    # path('<slug:card_link>/<int:access_code>/', views.personal_invitation, name="personal_invitation"),
+    # 내 명함 1대1 초대 페이지
+    path('<slug:card_link>/<int:access_code>/', views.personal_invitation, name="personal_invitation"),
     # 그룹 만들기 페이지(그룹 이름 입력하는 칸)
     path('make_group/', views.make_group, name="make_group"),
     # 그룹 초대 페이지

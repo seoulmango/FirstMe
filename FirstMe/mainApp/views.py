@@ -15,28 +15,28 @@ def home(request):
     user = request.user
     if user.is_authenticated:
         card = Card.objects.get(owner=user)
-        return render(request, 'home.html', {
-        'user':user,
-        'card':card,
-        })
 
-            # 프사 예시들
-    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+        profile_pics = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png',
         'https://ifh.cc/g/d19LpD.jpg',
-        'https://ifh.cc/g/3gGaD5.png']
-        
-    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
+        'https://ifh.cc/g/3gGaD5.png',
+        'https://ifh.cc/g/QxpyAj.png', 
         'https://ifh.cc/g/foD2kg.png',
         'https://ifh.cc/g/hLrAhp.png', 
         'https://ifh.cc/g/6tSO85.png',
-        'https://ifh.cc/g/ql6ZkW.png']
+        'https://ifh.cc/g/ql6ZkW.png', ]
+    
+        profile_pic = profile_pics[int(card.profile_pic)-1]
+
+        return render(request, 'home.html', {
+        'user':user,
+        'card':card,
+        'profile_pic': profile_pic
+        })
 
     return render(request, 'home.html', {
         'user':user,
-        'profile_pics_men': profile_pics_men,
-        'profile_pics_women': profile_pics_women,
         })
 
 def signup(request):
@@ -88,6 +88,11 @@ def signup(request):
             mbti=mbti,
             profile_pic = profile_pic,
             )
+        
+        # 유저의 friendlist 만들기
+        Friendlists.objects.create(
+            me = user
+        )
         return redirect('home')
 
     # 프사 예시들
@@ -162,8 +167,28 @@ def make(request):
 @login_required(login_url="/registration/login")
 def detail(request, card_link):
     user = request.user
-    card = Card.objects.get(link=card_link)
+    open_link = False
+    # 1 대 1 초대
+    if request.method == "POST":
+        # 동일한 invitation_link를 가진 명함이 있는가?
+        while True:
+            new_code = random.randrange(0, 2000000000)
+            already_card = Card.objects.filter(invitation_link = new_code)
+            already_group = Groups.objects.filter(invitation_link = new_code)
+            if not already_card and not already_group:
+                break
+            else:
+                continue
+
+        card = Card.objects.filter(link=card_link)
+
+        card.update(
+            invitation_link = new_code
+        )
+        return redirect('personal_invitation', card_link, new_code)
     
+    card = Card.objects.get(link=card_link)
+
     profile_pics = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png',
@@ -177,6 +202,14 @@ def detail(request, card_link):
     profile_pic = profile_pics[int(card.profile_pic)-1]
     # 이 명함의 주인일 때
     if card.owner == user:
+        # 명함의 링크가 열려있을 때
+        if card.invitation_link:
+            open_link = True
+            return render(request, "detail.html",{
+            "open_link":open_link,
+            "card":card,
+            "profile_pic":profile_pic,
+        })
         return render(request, "detail.html",{
             "card":card,
             "profile_pic":profile_pic,
@@ -190,7 +223,13 @@ def detail(request, card_link):
         if card.owner in members:
             access = True
     
-    if access:
+    # 방문 유저가 명함의 친구일 때
+
+    friendlist = Friendlists.objects.get(me=user)
+    if card.owner in friendlist.friends.all():
+        access = True
+
+    if access is True:
         return render(request, "detail.html", {
             "card": card,
             "profile_pic":profile_pic,
@@ -219,7 +258,7 @@ def edit(request, card_link):
             })
 
         card = Card.objects.filter(link=card_link)
-        print(card, "queryset")
+
         card.update(
             name = request.POST['name'],
             owner = request.user,
@@ -256,15 +295,56 @@ def edit(request, card_link):
 
 @login_required(login_url="/registration/login")
 def group_detail(request, group_pk):
+    # 그룹장이 초대 링크 다시 열었을 때:
+    # 동일한 invitation_link를 가진 그룹이 있는가?
+    if request.method == "POST":
+        while True:
+                new_code = random.randrange(0, 2000000000)
+                already_group = Groups.objects.filter(invitation_link = new_code)
+                already_card = Card.objects.filter(invitation_link = new_code)
+                if not already_group and not already_card:
+                    break
+                else:
+                    continue
+        group = Groups.objects.filter(pk=group_pk)
+        group.update(
+            invitation_link=new_code
+        )
+        group = Groups.objects.get(pk=group_pk)
+        return redirect('group_invitation', group.pk, new_code)
     group = Groups.objects.get(pk=group_pk)
     user = request.user
     members = group.members.all()
     member_card = []
+    open_link = False
+    is_creater = False
     for member in members:
         card = Card.objects.get(owner = member)
         member_card.append(card)
+    # 링크가 열려있는 그룹 + 그룹장이 열었을 때
+    if group.invitation_link and user == group.creater:
+        open_link = True
+        return render(request, "group_detail.html", {
+            'open_link': open_link,
+            'group': group,
+            'user':user,
+            'members': members,
+            'member_card': member_card
+        })
+    # 링크가 닫혀있고 + 그룹장이 열었을 때
+    if user == group.creater:
+        is_creater = True
+        return render(request, "group_detail.html", {
+            'is_creater': is_creater,
+            'group': group,
+            'user':user,
+            'members': members,
+            'member_card': member_card
+        })
+    # 그룹 맴버가 열었을 때
     if user in members:
         return render(request, "group_detail.html", {
+            'open_link': open_link,
             'group': group,
             'user':user,
             'members': members,
@@ -297,9 +377,6 @@ def group_list(request, card_link):
             'groups':groups,
         })
 
-# def personal_invitation(request):
-#     pass
-
 @login_required(login_url="/registration/login")
 def make_group(request):
     if request.method == "POST":
@@ -308,8 +385,9 @@ def make_group(request):
         # 동일한 invitation_link를 가진 그룹이 있는가?
         while True:
             new_code = random.randrange(0, 2000000000)
-            already = Groups.objects.filter(invitation_link = new_code)
-            if not already:
+            already_group = Groups.objects.filter(invitation_link = new_code)
+            already_card = Card.objects.filter(invitation_link = new_code)
+            if not already_group and not already_card:
                 break
             else:
                 continue
@@ -370,17 +448,79 @@ def group_invitation(request, group_pk, access_code):
     })
 
 @login_required(login_url="/registration/login")
+def personal_invitation(request, card_link, access_code):
+    guest = request.user
+    card = Card.objects.get(link=card_link)
+    card_owner = card.owner
+    ownerlist = Friendlists.objects.get(me = card_owner)
+    guestlist = Friendlists.objects.get(me = guest)
+
+
+    # 코드가 유효하면, 사이트에 입장한 유저 친구 추가하기 (유저가 카드 주인이 아닐 경우)
+    if card.invitation_link == access_code:
+        if guest == card.owner:
+            pass
+        else:
+            ownerlist.friends.add(guest)
+            ownerlist.save()
+            guestlist.friends.add(card_owner)
+            guestlist.save()
+            return render(request, 'personal_invitation.html', {
+                'card': card,
+                'guest': guest,
+                'card_owner': card_owner
+            })
+    else:
+        error = "이 명함의 공유 코드가 닫혔습니다. 명함 주인에게 문의해주세요."
+        return render(request, "personal_invitation.html", {
+        'error': error,
+        'card': card,
+        'guest': guest,
+        'card_owner': card_owner
+    })
+
+    # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
+    if request.method == "POST":
+        card = Card.objects.filter(link=card_link)
+        card.update(invitation_link=None)
+        card = Card.objects.get(link=card_link)
+        return redirect("detail", card_link)
+
+    # qr 코드 생성하여 띄우기
+
+    img = qrcode.make(str(card.link)+'/'+ str(access_code))
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(str(card.link)+'/'+ str(access_code))
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+    img.save(img_path + str(access_code) + ".png")
+    
+    qrcode_pic_route = "qr_codes/"+str(access_code)
+    return render(request, 'personal_invitation.html',{
+        'qrcode_pic_route': qrcode_pic_route,
+        'card': card,
+        'guest': guest,
+        'card_owner': card_owner
+        })
+
+@login_required(login_url="/registration/login")
 def friend_list(request, card_link):
     user = request.user
     card = Card.objects.get(link=card_link)
     # 이 명함의 주인일 때
-    if not card.owner == user:
+    if card.owner != user:
         error = "이 친구 목록의 열람 권한이 없습니다."
         return render(request, "friend_list.html", {
             'error': error
         })
     else:
-        groups = user.mygroups.all()        
+        groups = user.mygroups.all()
         all_cards_list = []
         all_link_list = []
 
@@ -395,14 +535,32 @@ def friend_list(request, card_link):
                     all_cards_list.append([str(friend_card.name), str(friend_card.phone_num)])
                     all_link_list.append(str(friend_card.link))
         
+        # 카드의 친구들 전부 뽑아오기
+        friendlist = Friendlists.objects.get(me=user)
+        for friend in friendlist.friends.all():
+            friend_card = Card.objects.get(owner=friend)
+            all_cards_list.append([str(friend_card.name), str(friend_card.phone_num)])
+            all_link_list.append(str(friend_card.link))
+
+        # 중복 제외
+        all_cards_list_new = []
+        for item in all_cards_list:
+            if item not in all_cards_list_new:
+                all_cards_list_new.append(item)
+
+        all_link_list_new = []
+        for item in all_link_list:
+            if item not in all_link_list_new:
+                all_link_list_new.append(item)
+        
         # 이 명함의 주인일 때
         if card.owner == user:
             return render(request, "friend_list.html",{
                 "card":card,
                 'user':user,
                 'groups':groups,
-                'all_cards_list': all_cards_list,
-                'all_link_list':all_link_list
+                'all_cards_list_new': all_cards_list_new,
+                'all_link_list_new':all_link_list_new,
             })
         else:
             error = "이 명함 그룹의 열람 권한이 없습니다."

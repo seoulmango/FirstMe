@@ -42,7 +42,7 @@ class Card(models.Model):
 
 # 친구 목록 모델을 아예 따로 만들어서, 그 목록의 주인 값을 받는 형식으로 만들어봤어.
 class Friendlists(models.Model):
-    me = models.ForeignKey(Card, on_delete=models.CASCADE, related_name="friendlist" )
+    me = models.ForeignKey(User, on_delete=models.CASCADE, related_name="friendlist" )
     friends = models.ManyToManyField(User, related_name="myfriends")
 
 # 서버에 존재하는 모든 그룹들. (각 그룹 페이지에 들어갈 수 있는 유저는 그룹의 members 뿐이다.)

@@ -8,25 +8,37 @@
 
 {% block content %}
  <!-- 로그인일 때 -->
+ <div class="entire-container">
     {% if user.is_authenticated %}
-    <div class="navbar__menu__item">
+    <!-- <div class="navbar__menu__item">
         <a href="/mycard/{{card.link}}/">내 명함 보기</a>
-    </div>
-    
-    <div class="logo">
+    </div> -->
+    <div class="top-bar">
+
+        <div class="invisible"> 숨겨 </div>
         <p>FirstMe</p>
-    </div>
-    
-    <div>
-        <div>
-            <a href="{% url 'logout' %}">로그아웃</a>
+        <div class="logout">
+            <a href="{% url 'logout' %}">로그아웃</a>  
         </div>
+         
+
+    </div>
+
+    <div class="mycard">
+        
         <div OnClick="location.href ='{% url 'detail' card.link %}' " style="cursor:pointer;">
-            <img src="{{ profile_pic }}" height='200' width='200'/>
-            <p>이름: {{ card.name }}</p>
-            <p>전화번호: {{ card.phone_num }}</p>
-            <p>한 줄 소개: {{ card.intro }}</p>
-            <p>MBTI: {{ card.mbti }}</p>
+            <div class="profile-img">
+                <div class="face"><img src="{{ profile_pic }}" height='200' width='200'/></div>
+                <div class="circle"><img src="https://ifh.cc/g/hlr225.png"></div>
+            </div>
+            
+            <div class="card-content">
+                <p class="card-name">{{ card.name }}</p>
+                <p>{{ card.phone_num }}</p>
+                <p>{{ card.intro }}</p>
+                <p>{{ card.mbti }}</p>
+            </div>
+           
         </div>
     </div>
     <div>
@@ -34,15 +46,25 @@
         <a href="{% url 'group_list' card.link %}">그룹 리스트</a>
     </div>
 
+ </div>
+   
     {% else %}
     
-
-    <div class="logo">
+    <!-- <div class="title-bar">
+        <div>
+            <a href="#" onClick="history.back()"> < </a> 
+        </div>
+        <div>그룹 만들기</div>
+        <div class="invisible"> > </div> -->
+    <div class="logo-bar">
+        <div class="invisible">로그인</div>
         <p>FirstMe</p>
+        <div class="login">
+            <a href="{% url 'login' %}">로그인</a>
+        </div>
+        
     </div>
-    <div class="login">
-        <a href="{% url 'login' %}">로그인</a>
-    </div>
+    
 
     <div class="container">
         <div class="ex_image">
@@ -50,7 +72,7 @@
         </div>
     
     
-    <p>나만의 명함을 만들고 손쉽게 공유해 보세요:)</p>
+    <p class="intro">나만의 명함을 만들고 손쉽게 공유해 보세요:)</p>
     
         <button onclick = "location.href = '/registration/login/' ">지금 바로 시작하기</button>
     

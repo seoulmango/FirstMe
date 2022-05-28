@@ -8,16 +8,15 @@
 
 {% block content %}
 <div class=container>
-    
+
     <div class="title-bar">
         
-        <div class="title"><p class="group_name">그룹명 : {{group.name}}</p></div>
+        <div class="title"><p class="group_name">{{group.name}}</p></div>
         <div class="invisible"> </div>
     </div>
 
-
-    
-    {% if is_creater %}
+    <div class="mycard">
+        {% if is_creater %}
     <form method="POST">
         {% csrf_token %}
         <button type="submit">그룹 초대 링크 <br>생성하기</button>
@@ -45,24 +44,21 @@
     {% else %}
     <!-- 링크가 열려있고, 방문자가 creater일 때 -->
     {% if open_link %}
-    <p>그룹의 초대 링크가 아직 열려 있습니다. <br>보안을 위해 닫아주세요</p>
     
-        <a href="http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/">
-            <button type="submit">그룹 초대링크 닫기</button>
-        </a>
+      
+
+        <p>그룹의 초대 링크가 아직 열려 있습니다. <br>보안을 위해 닫아주세요</p>
+
+
+    </div>
+
     
     {% endif %}
     
 
 </div>
 
-
-
-
-    <a href="{% url 'home' %}">
-        <button type="submit">홈</button>
-    </a>
-
 </div>
+
 {% endif %}
 {% endblock content %}

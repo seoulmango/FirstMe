@@ -49,6 +49,7 @@
         </div>
 
     </div>
+    {% if user == card.owner %}
     <div>
         <a href="{% url 'edit' card.link %}">
             <button class="edit-button" type="submit">수정하기</button>
@@ -63,6 +64,7 @@
             <button class="friend-button" type="submit">친구 추가하기</button>
         </form>
     </div>
+    {% endif %}
 </div>
 
 {% endif %}

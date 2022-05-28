@@ -217,11 +217,13 @@ def detail(request, card_link):
         if card.invitation_link:
             open_link = True
             return render(request, "detail.html",{
+            'user':user,
             "open_link":open_link,
             "card":card,
             "profile_pic":profile_pic,
         })
         return render(request, "detail.html",{
+            'user':user,
             "card":card,
             "profile_pic":profile_pic,
         })
@@ -242,6 +244,7 @@ def detail(request, card_link):
 
     if access is True:
         return render(request, "detail.html", {
+            'user':user,
             "card": card,
             "profile_pic":profile_pic,
             })

@@ -15,28 +15,28 @@ def home(request):
     user = request.user
     if user.is_authenticated:
         card = Card.objects.get(owner=user)
-        return render(request, 'home.html', {
-        'user':user,
-        'card':card,
-        })
 
-            # 프사 예시들
-    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+        profile_pics = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png',
         'https://ifh.cc/g/d19LpD.jpg',
-        'https://ifh.cc/g/3gGaD5.png']
-        
-    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
+        'https://ifh.cc/g/3gGaD5.png',
+        'https://ifh.cc/g/QxpyAj.png', 
         'https://ifh.cc/g/foD2kg.png',
         'https://ifh.cc/g/hLrAhp.png', 
         'https://ifh.cc/g/6tSO85.png',
-        'https://ifh.cc/g/ql6ZkW.png']
+        'https://ifh.cc/g/ql6ZkW.png', ]
+    
+        profile_pic = profile_pics[int(card.profile_pic)-1]
+
+        return render(request, 'home.html', {
+        'user':user,
+        'card':card,
+        'profile_pic': profile_pic
+        })
 
     return render(request, 'home.html', {
         'user':user,
-        'profile_pics_men': profile_pics_men,
-        'profile_pics_women': profile_pics_women,
         })
 
 def signup(request):
@@ -167,7 +167,7 @@ def make(request):
 @login_required(login_url="/registration/login")
 def detail(request, card_link):
     user = request.user
-
+    open_link = False
     # 1 대 1 초대
     if request.method == "POST":
         # 동일한 invitation_link를 가진 명함이 있는가?
@@ -202,6 +202,14 @@ def detail(request, card_link):
     profile_pic = profile_pics[int(card.profile_pic)-1]
     # 이 명함의 주인일 때
     if card.owner == user:
+        # 명함의 링크가 열려있을 때
+        if card.invitation_link:
+            open_link = True
+            return render(request, "detail.html",{
+            "open_link":open_link,
+            "card":card,
+            "profile_pic":profile_pic,
+        })
         return render(request, "detail.html",{
             "card":card,
             "profile_pic":profile_pic,

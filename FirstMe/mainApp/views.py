@@ -287,15 +287,56 @@ def edit(request, card_link):
 
 @login_required(login_url="/registration/login")
 def group_detail(request, group_pk):
+    # 그룹장이 초대 링크 다시 열었을 때:
+    # 동일한 invitation_link를 가진 그룹이 있는가?
+    if request.method == "POST":
+        while True:
+                new_code = random.randrange(0, 2000000000)
+                already_group = Groups.objects.filter(invitation_link = new_code)
+                already_card = Card.objects.filter(invitation_link = new_code)
+                if not already_group and not already_card:
+                    break
+                else:
+                    continue
+        group = Groups.objects.filter(pk=group_pk)
+        group.update(
+            invitation_link=new_code
+        )
+        group = Groups.objects.get(pk=group_pk)
+        return redirect('group_invitation', group.pk, new_code)
     group = Groups.objects.get(pk=group_pk)
     user = request.user
     members = group.members.all()
     member_card = []
+    open_link = False
+    is_creater = False
     for member in members:
         card = Card.objects.get(owner = member)
         member_card.append(card)
+    # 링크가 열려있는 그룹 + 그룹장이 열었을 때
+    if group.invitation_link and user == group.creater:
+        open_link = True
+        return render(request, "group_detail.html", {
+            'open_link': open_link,
+            'group': group,
+            'user':user,
+            'members': members,
+            'member_card': member_card
+        })
+    # 링크가 닫혀있고 + 그룹장이 열었을 때
+    if user == group.creater:
+        is_creater = True
+        return render(request, "group_detail.html", {
+            'is_creater': is_creater,
+            'group': group,
+            'user':user,
+            'members': members,
+            'member_card': member_card
+        })
+    # 그룹 맴버가 열었을 때
     if user in members:
         return render(request, "group_detail.html", {
+            'open_link': open_link,
             'group': group,
             'user':user,
             'members': members,

@@ -45,7 +45,7 @@ def signup(request):
         link = request.POST['link']
         found_link = Card.objects.filter(link = link)
         username = request.POST['username']
-        password = request.POST['password']
+        password = request.POST['password1']
         found_user = User.objects.filter(username=username)
 
         if found_link:

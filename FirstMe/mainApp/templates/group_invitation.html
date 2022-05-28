@@ -7,23 +7,52 @@
 
 {% block content %}
 
+<div class="title-bar">
+    <div>
+        <a href="#" onClick="history.back()">
+            < </a>
+    </div>
+    <div>{{ group.name }}</div>
+    <div class="invisible"> > </div>
+</div>
+
 {% if error %}
     {{ error }}
     <p>그룹장: {{ group.creater }}</p>
 {% else %}
-    <h1>그룹 입장 코드를 복사하여 친구들에게 전달하세요: </h1>
-    <p>http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/</p>
+    <div class="mycard">
+        <div class="qr">
+            <img src="{% static qrcode_pic_route %}.png">
+        </div>
+        <div class="comment1">
+            <p>http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/</p>
+            <p>링크를 복사하여 그룹에 초대하세요!</p>
+        </div>
 
-    <img src="{% static qrcode_pic_route %}.png">
-    
+
+
     {% if user == group.creater %}
-        <form method="POST">
-            {% csrf_token %}
-            <button submit>그룹 초대 닫기</button>
-        </form>
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                <button submit>초대 QR/링크 닫기</button>
+            </form>
+        </div>
+        <div class="comment2">
+            <p>닫기 전에는 해당 QR/링크를 가진 모두가
+            <br>나의 명함을 구경할 수 있어요.</p>
+        </div>
     {% else %}
-        <a href="/group/{{ group.pk }}">그룹으로 이동하기</a>
+        <div>
+            <a href="/group/{{ group.pk }}">그룹으로 이동하기</a>
+        </div>
     {% endif %}
+    </div>
+
 {% endif %}
+<a href="{% url 'group_detail' group.pk %}">
+    <button>해당 그룹 목록으로</button>
+</a>
+
 
 {% endblock content %}

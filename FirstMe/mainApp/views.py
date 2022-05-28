@@ -45,8 +45,8 @@ def signup(request):
                 'error': error,
             })
         
-        # # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
-        # else:
+        # 도메인&아이디가 배타적일 때 새 명함&계정 만들기
+
         new_user = User.objects.create_user(
             username = username,
             password = password,

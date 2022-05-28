@@ -72,6 +72,7 @@ def signup(request):
             mbti=mbti,
             profile_pic = profile_pic,
             )
+        
         return redirect('home')
 
     # 프사 예시들
@@ -146,8 +147,28 @@ def make(request):
 @login_required(login_url="/registration/login")
 def detail(request, card_link):
     user = request.user
-    card = Card.objects.get(link=card_link)
+
+    # 1 대 1 초대
+    if request.method == "POST":
+        # 동일한 invitation_link를 가진 명함이 있는가?
+        while True:
+            new_code = random.randrange(0, 2000000000)
+            already_card = Card.objects.filter(invitation_link = new_code)
+            already_group = Groups.objects.filter(invitation_link = new_code)
+            if not already_card and not already_group:
+                break
+            else:
+                continue
+
+        card = Card.objects.filter(link=card_link)
+
+        card.update(
+            invitation_link = new_code
+        )
+        return redirect('personal_invitation', card_link, new_code)
     
+    card = Card.objects.get(link=card_link)
+
     profile_pics = ['https://ifh.cc/g/lP9Q4y.png',
         'https://ifh.cc/g/DBKnAK.png',
         'https://ifh.cc/g/t5qXC4.png',
@@ -203,7 +224,7 @@ def edit(request, card_link):
             })
 
         card = Card.objects.filter(link=card_link)
-        print(card, "queryset")
+
         card.update(
             name = request.POST['name'],
             owner = request.user,
@@ -281,9 +302,6 @@ def group_list(request, card_link):
             'groups':groups,
         })
 
-# def personal_invitation(request):
-#     pass
-
 @login_required(login_url="/registration/login")
 def make_group(request):
     if request.method == "POST":
@@ -292,8 +310,9 @@ def make_group(request):
         # 동일한 invitation_link를 가진 그룹이 있는가?
         while True:
             new_code = random.randrange(0, 2000000000)
-            already = Groups.objects.filter(invitation_link = new_code)
-            if not already:
+            already_group = Groups.objects.filter(invitation_link = new_code)
+            already_card = Card.objects.filter(invitation_link = new_code)
+            if not already_group and not already_card:
                 break
             else:
                 continue
@@ -352,6 +371,63 @@ def group_invitation(request, group_pk, access_code):
         'img_path': img_path,
         'qrcode_pic_route':qrcode_pic_route,
     })
+
+@login_required(login_url="/registration/login")
+def personal_invitation(request, card_link, access_code):
+    guest = request.user
+    card = Card.objects.get(link=card_link)
+    card_owner = card.owner
+    ownerlist = Friendlists.objects.get(me = card_owner)
+    guestlist = Friendlists.objects.get(me = guest)
+
+
+    # 코드가 유효하면, 사이트에 입장한 유저 친구 추가하기 (유저가 카드 주인이 아닐 경우)
+    if card.invitation_link == access_code:
+        if guest == card.owner:
+            pass
+        else:
+            ownerlist.friends.add(guest)
+            ownerlist.save()
+            guestlist.friends.add(card_owner)
+            guestlist.save()
+            return render(request, 'personal_invitation.html', {
+                'card': card,
+                'guest': guest,
+                'card_owner': card_owner
+            })
+    else:
+        error = "이 명함의 공유 코드가 닫혔습니다. 명함 주인에게 문의해주세요."
+        return render(request, "personal_invitation.html", {
+        'error': error,
+        'card': card,
+        'guest': guest,
+        'card_owner': card_owner
+    })
+
+    # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
+    if request.method == "POST":
+        card = Card.objects.filter(link=card_link)
+        card.update(invitation_link=None)
+        card = Card.objects.get(link=card_link)
+        return redirect("detail", card_link)
+
+    # qr 코드 생성하여 띄우기
+
+    img = qrcode.make(str(card.link)+'/'+ str(access_code))
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_H,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(str(card.link)+'/'+ str(access_code))
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
+    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+    img.save(img_path + str(access_code) + ".png")
+    
+    qrcode_pic_route = "qr_codes/"+str(access_code)
+    return render(request, 'personal_invitation.html', {'qrcode_pic_route': qrcode_pic_route})
 
 @login_required(login_url="/registration/login")
 def friend_list(request, card_link):

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'personal_invitation.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+{% if error %}
+    {{ error }}
+    <p>명함 주인: {{ card.name }}</p>
+
+{% elif card_owner == guest %}
+    <h1>친구 추가 코드를 공유하세요</h1>
+    <p>http://127.0.0.1:8000/{{ card.link }}/{{ card.invitation_link }}/</p>
+
+    <img src="{% static qrcode_pic_route %}.png">
+    
+    {% if user == card.owner %}
+        <form method="POST">
+            {% csrf_token %}
+            <button submit>그룹 초대 닫기</button>
+        </form>
+
+    {% else %}
+    <a href="{% url 'detail' card.link %}">친구 명함으로 이동하기</a>
+{% endif %}
+
+{% endblock content %}

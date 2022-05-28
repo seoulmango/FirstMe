@@ -10,11 +10,14 @@
 .logo-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-left: 23px;
-    margin-right: 23px;
+    
 }
 
+.logout{
+    margin: auto;
+    position: relative;
+    left: 50px;
+}
 .logo-bar > p{
     font-weight: 900;
     font-size: 32px;

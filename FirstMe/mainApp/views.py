@@ -78,7 +78,6 @@ def signup(request):
         mbti = request.POST['mbti']
         profile_pic = request.POST['profile_pic']
 
-        
         new_card = Card.objects.create(
             owner = user,
             link = link,
@@ -413,7 +412,9 @@ def group_invitation(request, group_pk, access_code):
         group.save()
     else:
         error = "이 그룹의 초대 코드가 사라졌습니다. 그룹장에게 문의해 주세요."
+        owner_name = Card.objects.get(owner=group.creater).name
         return render(request, "group_invitation.html", {
+        'owner_name': owner_name,
         'user': user,
         'group': group,
         'error': error

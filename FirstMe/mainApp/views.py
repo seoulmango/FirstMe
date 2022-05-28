@@ -123,7 +123,7 @@ def login(request):
         if user is not None:
             auth.login(request, user)
             return redirect(request.GET.get("next", "/"))
-        error = "아이디나 비번이 틀립니다"
+        error = "아이디와 비밀번호가 일치하지 않습니다"
         return render(request, 'registration/login.html', {
             'error': error,
         })
@@ -440,6 +440,7 @@ def group_invitation(request, group_pk, access_code):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+    img_path = "/Users/eomhyeyeong/Desktop/clubs/NLplus2/FristMe0529/FirstMe/FirstMe/mainApp/static/qr_codes/"
 
     img.save(img_path + str(access_code) + ".png")
     qrcode_pic_route = "qr_codes/"+str(access_code)

@@ -22,10 +22,10 @@
             <form method="POST">
                 {% csrf_token %}
                 {% if error %}
-                    <p>{{ error }}</p>
+                    <p class="error_message">{{ error }}</p>
                 {% endif %}
-                <div class="username"><input type="text" name="username" placeholder="아이디" /></div>
-                <div class="password"><input type="password" name="password" placeholder="비밀번호" /></div>
+                <div><input type="text" name="username"  class="account" placeholder="아이디" /></div>
+                <div><input type="password" name="password"  class="account" placeholder="비밀번호" /></div>
                 
                 <button type="submit"> 로그인</button>
                 <!-- <div>
@@ -35,7 +35,7 @@
         </section>
 
     </div>
-    <a class=signup href="{% url 'signup' %}">회원가입</a> 
+    <a class="signup" href="{% url 'signup' %}">회원가입</a> 
 </div>
 
 

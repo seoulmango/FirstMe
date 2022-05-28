@@ -30,7 +30,7 @@ var alert_select_value = function (select_obj){
         {% csrf_token %}
 
         {% if error %}
-        <p>{{ error }}</p>
+        <p class="error_message">{{ error }}</p>
         {% endif %}
 
         <h2>Step 1: 필수 항목을 채워주세요!</h2>

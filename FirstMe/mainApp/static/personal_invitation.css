@@ -127,3 +127,25 @@ a button {
 
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
+
+.alert-content {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: rgba(255, 103, 103, 0.53);
+    position: relative;
+    margin-bottom: -10px;
+    text-align : center;
+}
+
+.alert-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: rgba(255, 103, 103, 0.53);
+    position: relative;
+    margin-bottom: -10px;
+    text-align : center;
+}

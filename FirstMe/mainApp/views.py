@@ -208,7 +208,6 @@ def detail(request, card_link):
         })
     # 방문 유저와 명함이 같은 그룹에 있을 때
     user_groups = user.mygroups.all()
-    user_friends = user.myfriends.all()
     access = False
 
     for group in user_groups:
@@ -217,7 +216,9 @@ def detail(request, card_link):
             access = True
     
     # 방문 유저가 명함의 친구일 때
-    if card.owner in user_friends:
+
+    friendlist = Friendlists.objects.get(me=user)
+    if card.owner in friendlist.friends.all():
         access = True
 
     if access is True:
@@ -464,13 +465,13 @@ def friend_list(request, card_link):
     user = request.user
     card = Card.objects.get(link=card_link)
     # 이 명함의 주인일 때
-    if not card.owner == user:
+    if card.owner != user:
         error = "이 친구 목록의 열람 권한이 없습니다."
         return render(request, "friend_list.html", {
             'error': error
         })
     else:
-        groups = user.mygroups.all()        
+        groups = user.mygroups.all()
         all_cards_list = []
         all_link_list = []
 
@@ -485,14 +486,32 @@ def friend_list(request, card_link):
                     all_cards_list.append([str(friend_card.name), str(friend_card.phone_num)])
                     all_link_list.append(str(friend_card.link))
         
+        # 카드의 친구들 전부 뽑아오기
+        friendlist = Friendlists.objects.get(me=user)
+        for friend in friendlist.friends.all():
+            friend_card = Card.objects.get(owner=friend)
+            all_cards_list.append([str(friend_card.name), str(friend_card.phone_num)])
+            all_link_list.append(str(friend_card.link))
+
+        # 중복 제외
+        all_cards_list_new = []
+        for item in all_cards_list:
+            if item not in all_cards_list_new:
+                all_cards_list_new.append(item)
+
+        all_link_list_new = []
+        for item in all_link_list:
+            if item not in all_link_list_new:
+                all_link_list_new.append(item)
+        
         # 이 명함의 주인일 때
         if card.owner == user:
             return render(request, "friend_list.html",{
                 "card":card,
                 'user':user,
                 'groups':groups,
-                'all_cards_list': all_cards_list,
-                'all_link_list':all_link_list
+                'all_cards_list_new': all_cards_list_new,
+                'all_link_list_new':all_link_list_new,
             })
         else:
             error = "이 명함 그룹의 열람 권한이 없습니다."

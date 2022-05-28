@@ -439,7 +439,6 @@ def group_invitation(request, group_pk, access_code):
     qr.add_data('group/'+str(group_pk)+'/'+str(access_code)+'/')
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
     img_path = "/Users/eomhyeyeong/Desktop/clubs/NLplus2/FristMe0529/FirstMe/FirstMe/mainApp/static/qr_codes/"
 
     img.save(img_path + str(access_code) + ".png")
@@ -492,7 +491,7 @@ def personal_invitation(request, card_link, access_code):
         return redirect("detail", card_link)
 
     # qr 코드 생성하여 띄우기
-
+    img_path = "/Users/eomhyeyeong/Desktop/clubs/NLplus2/FristMe0529/FirstMe/FirstMe/mainApp/static/qr_codes/"
     img = qrcode.make(str(card.link)+'/'+ str(access_code))
     qr = qrcode.QRCode(
         version=1,
@@ -503,7 +502,7 @@ def personal_invitation(request, card_link, access_code):
     qr.add_data(str(card.link)+'/'+ str(access_code))
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+   
 
     img.save(img_path + str(access_code) + ".png")
     

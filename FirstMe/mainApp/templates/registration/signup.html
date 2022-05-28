@@ -39,7 +39,7 @@
             <p>아래 이미지 중 하나를 선택해 주세요</p>
             <div class="input-box">
                 {% for pic in profile_pics_1 %}
-                <img src="{{pic}}" height="120" width="120">
+                <img src="{{pic}}" height="120" width="120" >
                 {% endfor %}
             </div>
             <br>
@@ -51,12 +51,12 @@
                 </span>
                 <span>
                 <input type="radio" id="profileChoice2"
-                name="profile_pic" value="2">
+                name="profile_pic" value="2" >
                 <label for="profileChoice2">2</label>
                 </span>
                 <span>
                 <input type="radio" id="profileChoice3"
-                name="profile_pic" value="3">
+                name="profile_pic" value="3" >
                 <label for="profileChoice3">3</label>
                 </span>
             </div>
@@ -140,7 +140,7 @@
         <input type="text" name="intro" max_length="50" placeholder="30자 이내" />
         <br>
         <h3>MBTI</h3>
-        <select name="mbti">
+        <select name="mbti" class="mbti">
             <option value="" selected>비공개</option>
 
             <option value="INFJ">INFJ</option>

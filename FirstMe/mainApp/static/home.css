@@ -34,6 +34,12 @@
     color:transparent;
 }
 
+.login{
+    margin: auto;
+    position: relative;
+    left: 50px;
+}
+
 .intro{
     font-weight: 400;
     font-size: 18px;
@@ -107,7 +113,6 @@ a {
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
 
-
 .face{
     position: relative;
     left:67px;
@@ -122,6 +127,7 @@ a {
     z-index:1;
 
 }
+
 .card-name{
 font-weight: 700;
 font-size: 24px;

@@ -1,0 +1,42 @@
+
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #958D8D;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.invisible {
+    color: transparent;
+}
+
+.title-bar > a{
+    font-size: 28px;
+    text-decoration: none;
+    color: #958D8D;
+}
+
+
+.container{
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.group-list{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+   
+    /* identical to box height */
+
+
+    color: rgba(28, 26, 26, 0.53);
+}

@@ -29,6 +29,15 @@ a{
     color: #958D8D;
 } */
 
+/* .con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+} */
+
+
 .title-bar {
     position: absolute;
     left: 50%;
@@ -40,6 +49,8 @@ a{
     margin-bottom: 20px;
 
     width: 332px;
+
+    z-index: 100;
 }
 
 .invisible {
@@ -63,7 +74,8 @@ a{
 
 .alert {
     position: relative;
-    padding: 0 25px;
+    padding: 25px;
+
 
     /* top: 25px; */
 

@@ -96,10 +96,12 @@ a {
 }
 
 .mycard{
+    margin-right:15px;
     width: 332px;
     height: 530px;
     background: linear-gradient(144.22deg, #FFCDA5 0%, #EE4D5F 100%);
     border-radius: 10px;
+    filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
 
 
@@ -127,4 +129,25 @@ line-height: 29px;
     left:20px;
     bottom:150px;
     color:  #FFFFFF;
+    
+}
+
+.phone-num{
+    margin-bottom:27px;
+}
+
+.card-intro{
+    margin-bottom:27px;
+}
+
+.bottom-button{
+    background: #FF8282;
+    border-radius: 5px;
+    border: solid #FF8282;
+    color: white;
+    font-size: 18px;
+    width: 100px;
+    height: 43px;
+    margin-top: 16px;
+
 }

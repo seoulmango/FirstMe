@@ -13,6 +13,8 @@
     <!-- <div class="navbar__menu__item">
         <a href="/mycard/{{card.link}}/">내 명함 보기</a>
     </div> -->
+    
+    <!-- 1:53 수정할부분  -->
     <div class="top-bar">
 
         <div class="invisible"> 숨겨 </div>
@@ -34,16 +36,22 @@
             
             <div class="card-content">
                 <p class="card-name">{{ card.name }}</p>
-                <p>{{ card.phone_num }}</p>
-                <p>{{ card.intro }}</p>
-                <p>{{ card.mbti }}</p>
+                <p class="phone-num">📞 &nbsp;&nbsp;{{ card.phone_num }}</p>
+                <p class="card-intro">💬&nbsp;&nbsp; {{ card.intro }}</p>
+                <p class="card-mbti">✨&nbsp;&nbsp; {{ card.mbti }}</p>
+            </div>
+                
             </div>
            
         </div>
     </div>
-    <div>
-        <a href="{% url 'friend_list' card.link %}">친구 리스트</a>
-        <a href="{% url 'group_list' card.link %}">그룹 리스트</a>
+    <div class="bottom-button">
+        <a href="{% url 'friend_list' card.link %}">
+            <button type="submit"> 전체목록</button>
+
+        <a href="{% url 'group_list' card.link %}">
+            <button type="submit"> 그룹목록</button>
+        </a>
     </div>
 
  </div>

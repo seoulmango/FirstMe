@@ -107,3 +107,15 @@ select {
     margin-bottom: 20px;
     filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
 }
+
+.error_message {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    color: rgba(255, 103, 103, 0.53);
+    position: relative;
+    bottom: 30px;
+    margin-bottom: -10px;
+    text-align : center;
+    }

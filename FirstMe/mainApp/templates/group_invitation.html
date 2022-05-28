@@ -17,16 +17,21 @@
 </div>
 
 {% if error %}
-    {{ error }}
-    <p>그룹장: {{ group.creater }}</p>
+    <div class="alert">
+        <p class="alert-title">앗! 그룹 입구가 없어졌어요 😢</p>
+        <p class="alert-content">{{ error }}</p>
+        <p class="group-creater">그룹장 : {{ group.creater }}</p>
+    </div>
+
+
 {% else %}
     <div class="mycard">
         <div class="qr">
             <img src="{% static qrcode_pic_route %}.png">
         </div>
         <div class="comment1">
-            <p>http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/</p>
-            <p>링크를 복사하여 그룹에 초대하세요!</p>
+            <p>http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/
+            <br>링크를 복사하여 그룹에 초대하세요!</br>
         </div>
 
 

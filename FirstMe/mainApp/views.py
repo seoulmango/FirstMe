@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import random
 import qrcode
 from PIL import Image
+import os
 
 # Create your views here.
 
@@ -447,7 +448,7 @@ def group_invitation(request, group_pk, access_code):
     qr.add_data('group/'+str(group_pk)+'/'+str(access_code)+'/')
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    img_path = "/Users/jinny/Desktop/FirstMe/FirstMe/FirstMe/mainApp/static/qr_codes/"
+    img_path = "./mainApp/static/qr_codes/"
 
     img.save(img_path + str(access_code) + ".png")
     qrcode_pic_route = "qr_codes/"+str(access_code)
@@ -499,7 +500,7 @@ def personal_invitation(request, card_link, access_code):
         return redirect("detail", card_link)
 
     # qr 코드 생성하여 띄우기
-    img_path = "/Users/jinny/Desktop/FirstMe/FirstMe/FirstMe/mainApp/static/qr_codes/"
+    img_path = "./mainApp/static/qr_codes/"
     img = qrcode.make(str(card.link)+'/'+ str(access_code))
     qr = qrcode.QRCode(
         version=1,

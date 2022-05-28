@@ -22,7 +22,7 @@
         <div class="logout">
             <a href="{% url 'logout' %}">로그아웃</a>  
         </div>
-         
+        
 
     </div>
 
@@ -45,6 +45,7 @@
             
             </div>
         </div>
+<<<<<<< HEAD
 
         <div class="buttons">
             <a href="{% url 'friend_list' card.link %}">
@@ -54,8 +55,17 @@
                 <button type="submit">그룹 목록</button>
             </a>
         </div>
+=======
     </div>
-
+    <div class="buttons">
+        <a href="{% url 'friend_list' card.link %}">
+            <button type="submit">친구 목록</button>
+        </a>
+        <a href="{% url 'group_list' card.link %}">
+            <button type="submit">그룹 목록</button>
+        </a>
+>>>>>>> 0ec966e1ac516ad10f9bc5444da0a44970181195
+    </div>
  </div>
    
     {% else %}

@@ -8,13 +8,34 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
-<h1>로그인 상태</h1>
-<div class="navbar__menu__item"><a href="/mycard/{{card.link}}/">내 명함 보기</a></div>
+    {% if user.is_authenticated %}
+    {% comment %} <div class="navbar__menu__item"><a href="/mycard/{{card.link}}/">내 명함 보기</a></div> {% endcomment %}
+    <div>
+        <div>
+            <h1>FIRST ME</h1>
+        </div>
+        <div>
+            <a href="{% url 'logout' %}">로그아웃</a>
+        </div>
+        <div OnClick="location.href ='{% url 'detail' card.link%}' " style="cursor:pointer;"
+        출처: https://yoo-hyeok.tistory.com/47 [유혁의 개발 스토리:티스토리]>
+            <img src="{{ profile_pic }}" height='200' width='200'/>
+            <p>이름: {{ card.name }}</p>
+            <p>전화번호: {{ card.phone_num }}</p>
+            <p>한 줄 소개: {{ card.intro }}</p>
+            <p>MBTI: {{ card.mbti }}</p>
+        </div>
 
+    <div>
+        <a href="{% url 'friend_list' card.link %}">친구 리스트</a>
+        <a href="{% url 'group_list' card.link %}">그룹 리스트</a>
+    </div>
 
-{% else %}
-<h1>로그인 아님</h1>
-{% endif %}
+    </div>
+    {% else %}
+    <h1>로그인 아님</h1>
+    <p>나만의 명함을 만들고 손쉽게 공유해 보세요</p>
+    <button onclick = "location.href = '/registration/login/' ">지금 바로 시작하기</button>
+    {% endif %}
 
 {% endblock content %}

@@ -7,9 +7,16 @@
 
 
 {% block content %}
-<h2>그룹 만들기</h2>
+<div class="title-bar">
+    <div>
+        <a href="#" onClick="history.back()"> < </a> 
+    </div>
+    <div>그룹 만들기</div>
+    <div class="invisible"> > </div>
+</div>
 <form method="POST">
     {% csrf_token %}
+    <p>이름</p>
     <input type="text" name="name" placeholder="그룹명을 입력하세요" />
     <br>
     <br>

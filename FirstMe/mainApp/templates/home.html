@@ -9,18 +9,15 @@
 {% block content %}
  <!-- 로그인일 때 -->
     {% if user.is_authenticated %}
-    {% comment %} <div class="navbar__menu__item"><a href="/mycard/{{card.link}}/">내 명함 보기</a></div> {% endcomment %}
-    
-        <div class="logo">
-            <p>FirstMe</p>
     <div class="navbar__menu__item">
         <a href="/mycard/{{card.link}}/">내 명함 보기</a>
     </div>
+    
+    <div class="logo">
+        <p>FirstMe</p>
+    </div>
+    
     <div>
-        <div>
-            <h1>FIRST ME</h1>
-        </div>
-        
         <div>
             <a href="{% url 'logout' %}">로그아웃</a>
         </div>

@@ -78,7 +78,6 @@ def signup(request):
         mbti = request.POST['mbti']
         profile_pic = request.POST['profile_pic']
 
-        
         new_card = Card.objects.create(
             owner = user,
             link = link,

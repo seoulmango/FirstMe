@@ -12,6 +12,7 @@ class Card(models.Model):
     # 필수 기재 사항
     name = models.TextField()
     phone_num = models.TextField()
+    profile_pic = models.TextField()
 
     # 선택 기재 사항
     intro = models.TextField(null=True)

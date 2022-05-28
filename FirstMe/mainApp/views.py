@@ -60,6 +60,7 @@ def signup(request):
             link = request.POST['link']
             intro = request.POST['intro']
             mbti = request.POST['mbti']
+            profile_pic = request.POST['profile_pic']
 
             
             new_card = Card.objects.create(
@@ -251,7 +252,7 @@ def group_invitation(request, group_pk, access_code):
     qr.add_data('group/'+str(group_pk)+'/'+str(access_code)+'/')
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    img.save("code.png")
+    img.save(str(access_code)+".png")
     return render(request, "group_invitation.html", {
         'user': user,
         'group': group,

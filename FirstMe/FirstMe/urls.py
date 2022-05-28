@@ -48,4 +48,5 @@ urlpatterns = [
     path('<slug:card_link>/group_list/', views.group_list, name="group_list"),
     # 친구 목록
     path('<slug:card_link>/friend_list/', views.friend_list, name="friend_list"),
+
 ]

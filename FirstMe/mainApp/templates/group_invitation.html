@@ -13,8 +13,9 @@
 {% else %}
     <h1>그룹 입장 코드를 복사하여 친구들에게 전달하세요: </h1>
     <p>http://127.0.0.1:8000/group/{{ group.pk }}/{{ group.invitation_link }}/</p>
-    <!-- <img src="{{ img_path }}{{ access_code }}.png"> -->
-    <img src="{{test}}">
+
+    <img src="{% static qrcode_pic_route %}.png">
+    
     {% if user == group.creater %}
         <form method="POST">
             {% csrf_token %}

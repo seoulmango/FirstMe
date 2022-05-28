@@ -33,7 +33,7 @@
 <ul>
     {% for card in member_card %}
     <li>
-        <a href="/mycard/{{card.link}}">{{ card.name }}</a> | {{ card.phone_num }}
+        <a href="{% url 'detail' card.link %}">{{ card.name }}</a> | {{ card.phone_num }}
     </li>
     {% endfor %}
 </ul>

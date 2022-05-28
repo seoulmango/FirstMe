@@ -289,10 +289,6 @@ def edit(request, card_link):
         'profile_pics_women': profile_pics_women
         })
 
-
-# def edit(request):
-#     pass
-
 @login_required(login_url="/registration/login")
 def group_detail(request, group_pk):
     # 그룹장이 초대 링크 다시 열었을 때:
@@ -436,8 +432,12 @@ def group_invitation(request, group_pk, access_code):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+<<<<<<< HEAD
     img_path = "/Users/eomhyeyeong/Desktop/clubs/NLplus2/FristMe0529/FirstMe/FirstMe/mainApp/static/qr_codes/"
 
+=======
+    img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
+>>>>>>> 3349d6114b256c5352c840d7066415f703507add
     img.save(img_path + str(access_code) + ".png")
     
     qrcode_pic_route = "qr_codes/"+str(access_code)
@@ -501,8 +501,12 @@ def personal_invitation(request, card_link, access_code):
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
     img_path = "/Users/gimanpark/Desktop/LuckySeven/FirstMe/mainApp/static/qr_codes/"
+<<<<<<< HEAD
     img_path = "/Users/eomhyeyeong/Desktop/clubs/NLplus2/FristMe0529/FirstMe/FirstMe/mainApp/static/qr_codes/"
 
+=======
+    img_path = "/Users/hongselin/Desktop/해커톤/FirstMe/FirstMe/mainApp/static/qr_codes/"
+>>>>>>> 3349d6114b256c5352c840d7066415f703507add
     img.save(img_path + str(access_code) + ".png")
     
     qrcode_pic_route = "qr_codes/"+str(access_code)

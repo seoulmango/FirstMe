@@ -132,15 +132,24 @@ a{
 
 } */
 
-.face, .circle {
+.face {
     position: absolute;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, 0);
     width: 173px;
     height: 173px;
-    z-index: 2;
+    top: 100px;
+}
 
+.circle {
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
+    width: 180px;
+    height: 180px;
+    z-index: 2;
     top: 100px;
 }
 

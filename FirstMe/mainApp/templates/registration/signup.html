@@ -21,9 +21,67 @@
         <h1>내 명함 정보</h1>
 
         <h2>Step 1: 필수</h2>
+        <p>이름</p>
         <input type="text" name="name" placeholder="이름" required/>
+        <p>전화번호</p>
         <input type="text" name="phone_num" placeholder="전화번호 ex)01012345678" required/>
+        <p>내 도메인 주소</p>
+        <p>ex) 'gpark'입력 시 -> (/mycard/gpark) 도메인을 가지게 됩니다.</p>
         <input type="text" name="link" placeholder="내 도메인 주소" required/>
+        <div>
+            <p>프로필 사진 선택하기</p>
+            {% for pic in profile_pics_men %}
+            <img src="{{pic}}" height="100" width="100">
+            {% endfor %}
+            <br>
+            <input type="radio" id="profileChoice1"
+             name="profile_pic" value="1">
+            <label for="profileChoice1">1</label>
+
+            <input type="radio" id="profileChoice2"
+             name="profile_pic" value="2">
+            <label for="profileChoice2">2</label>
+
+            <input type="radio" id="profileChoice3"
+             name="profile_pic" value="3">
+            <label for="profileChoice3">3</label>
+
+            <input type="radio" id="profileChoice4"
+             name="profile_pic" value="4">
+            <label for="profileChoice4">4</label>
+
+            <input type="radio" id="profileChoice5"
+             name="profile_pic" value="5">
+            <label for="profileChoice5">5</label>
+            
+            <br>
+
+            {% for pic in profile_pics_women %}
+            <img src="{{pic}}" height="100" width="100">
+            {% endfor %}
+            <br>
+
+            <input type="radio" id="profileChoice6"
+             name="profile_pic" value="6">
+            <label for="profileChoice6">6</label>
+
+            <input type="radio" id="profileChoice7"
+             name="profile_pic" value="7">
+            <label for="profileChoice7">7</label>
+
+            <input type="radio" id="profileChoice8"
+             name="profile_pic" value="8">
+            <label for="profileChoice8">8</label>
+
+            <input type="radio" id="profileChoice9"
+             name="profile_pic" value="9">
+            <label for="profileChoice9">9</label>
+
+            <input type="radio" id="profileChoice10"
+             name="profile_pic" value="10">
+            <label for="profileChoice10">10</label>          
+        </div>
+
         <br>
         <h2>Step 2: 선택</h2>
         <input type="text" name="intro" max_length="50" placeholder="한줄 소개" />

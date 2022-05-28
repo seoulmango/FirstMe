@@ -60,6 +60,7 @@ def signup(request):
             link = request.POST['link']
             intro = request.POST['intro']
             mbti = request.POST['mbti']
+            profile_pic = request.POST['profile_pic']
 
             
             new_card = Card.objects.create(
@@ -69,10 +70,27 @@ def signup(request):
                 phone_num=phone_num,
                 intro=intro,
                 mbti=mbti,
+                profile_pic = profile_pic,
                 )
             return redirect('home')
 
-    return render(request, 'registration/signup.html')
+    # 프사 예시들
+    profile_pics_men = ['https://ifh.cc/g/lP9Q4y.png',
+        'https://ifh.cc/g/DBKnAK.png',
+        'https://ifh.cc/g/t5qXC4.png',
+        'https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/3gGaD5.png']
+        
+    profile_pics_women = ['https://ifh.cc/g/QxpyAj.png', 
+        'https://ifh.cc/g/foD2kg.png',
+        'https://ifh.cc/g/hLrAhp.png', 
+        'https://ifh.cc/g/6tSO85.png',
+        'https://ifh.cc/g/ql6ZkW.png']
+    
+    return render(request, 'registration/signup.html', {
+        'profile_pics_men': profile_pics_men,
+        'profile_pics_women': profile_pics_women
+    })
 
 def login(request):
     if request.method == "POST":
@@ -129,9 +147,24 @@ def make(request):
 def detail(request, card_link):
     user = request.user
     card = Card.objects.get(link=card_link)
+    
+    profile_pics = ['https://ifh.cc/g/lP9Q4y.png',
+        'https://ifh.cc/g/DBKnAK.png',
+        'https://ifh.cc/g/t5qXC4.png',
+        'https://ifh.cc/g/d19LpD.jpg',
+        'https://ifh.cc/g/3gGaD5.png',
+        'https://ifh.cc/g/QxpyAj.png', 
+        'https://ifh.cc/g/foD2kg.png',
+        'https://ifh.cc/g/hLrAhp.png', 
+        'https://ifh.cc/g/6tSO85.png',
+        'https://ifh.cc/g/ql6ZkW.png', ]
+    profile_pic = profile_pics[int(card.profile_pic)-1]
     # 이 명함의 주인일 때
     if card.owner == user:
-        return render(request, "detail.html", {"card":card})
+        return render(request, "detail.html",{
+            "card":card,
+            "profile_pic":profile_pic,
+        })
     # 방문 유저와 명함이 같은 그룹에 있을 때
     user_groups = user.mygroups.all()
     access = False
@@ -142,7 +175,10 @@ def detail(request, card_link):
             access = True
     
     if access:
-        return render(request, "detail.html", {"card": card})
+        return render(request, "detail.html", {
+            "card": card,
+            "profile_pic":profile_pic,
+            })
 
     # 열람 권한이 없을 때
     else:
@@ -177,11 +213,16 @@ def group_detail(request, group_pk):
     group = Groups.objects.get(pk=group_pk)
     user = request.user
     members = group.members.all()
+    member_card = []
+    for member in members:
+        card = Card.objects.get(owner = member)
+        member_card.append(card)
     if user in members:
         return render(request, "group_detail.html", {
             'group': group,
             'user':user,
-            'members': members
+            'members': members,
+            'member_card': member_card
         })
     else:
         error = "이 그룹의 열람 권한이 없습니다."
@@ -270,7 +311,7 @@ def group_invitation(request, group_pk, access_code):
     qr.add_data('group/'+str(group_pk)+'/'+str(access_code)+'/')
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    img.save("code.png")
+    img.save(str(access_code)+".png")
     return render(request, "group_invitation.html", {
         'user': user,
         'group': group,
@@ -278,5 +319,4 @@ def group_invitation(request, group_pk, access_code):
     })
 
 # def friend_list(request):
-#     pass
-
+    # pass

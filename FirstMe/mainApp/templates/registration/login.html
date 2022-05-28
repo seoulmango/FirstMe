@@ -5,18 +5,32 @@
 {% endblock css %}
 
 {% block content %}
-<section id="login">
-    <form method="POST">
-        {% csrf_token %}
-        {% if error %}
-            <p>{{ error }}</p>
-        {% endif %}
-        <input type="text" name="username" placeholder="아이디" />
-        <input type="text" name="password" placeholder="비밀번호" />
-        <button type="submit">로그인</button>
-        <div>
-            <a href="{% url 'signup' %}">회원가입</a>
-        </div>
-    </form>
-</section>
+<a href="#" onClick="history.back()"> < </a> 
+<div>
+    <p class="login">로그인</p>
+</div>
+
+<div class="container"> 
+    <div class="img">
+        <img src="https://ifh.cc/g/AvGA94.png">
+    </div>      
+    <section id="login">
+        <form method="POST">
+            {% csrf_token %}
+            {% if error %}
+                <p>{{ error }}</p>
+            {% endif %}
+            <input type="text" name="username" placeholder="아이디" />
+            <input type="text" name="password" placeholder="비밀번호" />
+            <button type="submit">로그인</button>
+            <div>
+                <a href="{% url 'signup' %}">회원가입</a>
+            </div>
+        </form>
+    </section>
+</div>
+
+
+
+ 
 {% endblock content %}

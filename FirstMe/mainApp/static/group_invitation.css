@@ -175,3 +175,10 @@ a button {
     margin-bottom: -10px;
     text-align : center;
 }
+
+.group_name {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 22px;
+}

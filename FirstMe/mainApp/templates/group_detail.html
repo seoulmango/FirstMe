@@ -25,7 +25,6 @@
         <button type="submit">그룹 초대 링크 생성하기</button>
     </form>
     {% endif %}
-<<<<<<< HEAD
 
     <div class="group-list">
         <ul>
@@ -54,22 +53,6 @@
     </a>
 </p>
 {% endif %}
-
-=======
-<h1>{{group.name}}</h1>
-<ul>
-    {% for card in member_card %}
-    <li>
-        <a href="{% url 'detail' card.link %}">{{ card.name }}</a> | {{ card.phone_num }}
-    </li>
-    {% endfor %}
-</ul>
->>>>>>> 9b516fc720c1acb8a99921eebea68cf7989d4ccd
 {% endif %}
-
-
-    <a href="{% url 'home' %}">홈</a>
-
-</div>
 
 {% endblock content %}

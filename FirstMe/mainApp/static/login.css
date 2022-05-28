@@ -1,5 +1,4 @@
 .login{
-    
     font-weight: 900;
     font-size: 32px;
     line-height: 38.4px;
@@ -11,7 +10,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
 
 .container{

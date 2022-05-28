@@ -299,5 +299,46 @@ def group_invitation(request, group_pk, access_code):
         'img': img,
     })
 
-# def friend_list(request):
-    # pass
+@login_required(login_url="/registration/login")
+def friend_list(request, card_link):
+    user = request.user
+    card = Card.objects.get(link=card_link)
+    # 이 명함의 주인일 때
+    if not card.owner == user:
+        error = "이 친구 목록의 열람 권한이 없습니다."
+        return render(request, "friend_list.html", {
+            'error': error
+        })
+    else:
+        groups = user.mygroups.all()        
+        all_cards_list = []
+        all_link_list = []
+
+        # 카드의 모든 그룹에 있는 멤버들 전부 뽑아오기
+        for group in groups:
+            members = group.members.all()
+            for member in members:
+                friend_card = Card.objects.get(owner=member)
+                if friend_card == card:
+                    pass
+                else:
+                    all_cards_list.append([str(friend_card.name), str(friend_card.phone_num)])
+                    all_link_list.append(str(friend_card.link))
+        
+        # 이 명함의 주인일 때
+        if card.owner == user:
+            return render(request, "friend_list.html",{
+                "card":card,
+                'user':user,
+                'groups':groups,
+                'all_cards_list': all_cards_list,
+                'all_link_list':all_link_list
+            })
+        else:
+            error = "이 명함 그룹의 열람 권한이 없습니다."
+            return render(request, "friend_list.html",{
+                "error": error,
+                "card":card,
+                'user':user,
+                'groups':groups,
+            })

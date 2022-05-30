@@ -7,12 +7,9 @@
     margin-bottom: 20px;
 }
 
-
-
 .group_name > p{
     margin-bottom: 10px;
 }
-
 
 .title {
     font-size: 24px;
@@ -30,6 +27,7 @@
 
 .group > a{
     font-size: 18px;
+    text-decoration: none;
 }
 
 button{
@@ -82,21 +80,21 @@ button{
     }
 
 
-    .mycard{
-        margin-top: 30px;
-        position: absolute;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, 0);
-    
-        top: 50px;
-    
-        width: 332px;
-        height: 530px;
-        background: linear-gradient(144.22deg, #FFCDA5 0%, #EE4D5F 100%);
-        border-radius: 10px;
-        filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
-    }
+.mycard{
+    margin-top: 30px;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0);
+
+    top: 50px;
+
+    width: 332px;
+    height: 530px;
+    background: linear-gradient(144.22deg, #FFCDA5 0%, #EE4D5F 100%);
+    border-radius: 10px;
+    filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
+}
 
 .all-button{
     position: relative;

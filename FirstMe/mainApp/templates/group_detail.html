@@ -8,57 +8,41 @@
 
 {% block content %}
 <div class=container>
-
-    <div class="title-bar">
-        
-        <div class="title"><p class="group_name">{{group.name}}</p></div>
-        <div class="invisible"> </div>
-    </div>
-
-    <div class="mycard">
-        {% if is_creater %}
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit">그룹 초대 링크 <br>생성하기</button>
-    </form>
-    {% endif %}
-
-    <div class="group-list">
-        <ul>
-            {% for card in member_card %}
-            <li>
-                <a href="/mycard/{{card.link}}">{{ card.name }}</a> | {{ card.phone_num }}
-            </li>
-            {% endfor %}
-            </ul>
-
-    </div>
-    
-    
-
-<!-- 유저가 그룹 열람 권한이 없을 때 -->
-<div class="error_message">
+    <!-- 유저가 그룹 열람 권한이 없을 때 -->
     {% if error %}
-    <p>{{ error }}</p>
+        <p>{{ error }}</p>
     <!-- 유저가 그룹 열람 권한이 있을 때 -->
     {% else %}
     <!-- 링크가 열려있고, 방문자가 creater일 때 -->
-    {% if open_link %}
-    
-      
+        {% if open_link %}    
+            <p>그룹의 초대 링크가 아직 열려 있습니다. <br>보안을 위해 닫아주세요</p>
+            <a href="{% url 'group_invitation' group.pk group.invitation_link %}"> 그룹 닫으러 가기</a>
+        {% endif %}
 
-        <p>그룹의 초대 링크가 아직 열려 있습니다. <br>보안을 위해 닫아주세요</p>
+        <div class="title-bar">
+            <div>
+                <a href="{% url 'home' %}"> < </a> 
+            </div>
+            <div class="title"><p class="group_name">{{group.name}}</p></div>
+            <div class="invisible"> </div>
+        </div>
 
+        {% if is_creater %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit">그룹 초대 링크 <br>생성하기</button>
+            </form>
+        {% endif %}
 
-    </div>
-
-    
+        <div class="group-list">
+            <ul>
+                {% for card in member_card %}
+                <li>
+                    <a href="{% url 'detail' card.link %}">{{ card.name }}</a> | {{ card.phone_num }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
-    
-
 </div>
-
-</div>
-
-{% endif %}
 {% endblock content %}

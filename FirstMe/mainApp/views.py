@@ -432,9 +432,11 @@ def group_invitation(request, group_pk, access_code):
         'error': error
     })
 
-    # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
+    # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기 + + 이미지 삭제하기
     if request.method == "POST":
         group = Groups.objects.filter(pk=group_pk)
+        if os.path.exists(("./mainApp/static/qr_codes/"+str(access_code)+".png")):
+            os.remove(("./mainApp/static/qr_codes/"+str(access_code)+".png"))
         group.update(invitation_link=None)
         group = Groups.objects.get(pk=group_pk)
         return redirect("group_detail", group_pk)
@@ -495,9 +497,11 @@ def personal_invitation(request, card_link, access_code):
         'card_owner': card_owner
     })
 
-    # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기
+    # 관리자가 QR코드 닫기 버튼 눌렀을 때, 공유 링크 닫기 + 이미지 삭제하기
     if request.method == "POST":
         card = Card.objects.filter(link=card_link)
+        if os.path.exists(("./mainApp/static/qr_codes/"+str(access_code)+".png")):
+            os.remove(("./mainApp/static/qr_codes/"+str(access_code)+".png"))
         card.update(invitation_link=None)
         card = Card.objects.get(link=card_link)
         return redirect("detail", card_link)

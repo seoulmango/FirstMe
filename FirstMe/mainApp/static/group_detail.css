@@ -19,12 +19,27 @@
     color: transparent;
 }
 
+
+.back_button {
+    position:relative;
+    right:120px;
+    color:#958D8D;
+
+}
+
+a { text-decoration: none; color: black; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
+
 .group {
     display: flex;
     align-items: center;
     height: 65px;
 }
 
+    
 .group > a{
     font-size: 18px;
     text-decoration: none;
@@ -50,6 +65,7 @@ button{
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
+    color:#958D8D;
 
     /* identical to box height */
 
@@ -67,8 +83,7 @@ button{
 
 .error_message {
     position: relative;
-    top: 500px;
-    color: gray;
+    color:#FF8282;
     font-style: normal;
     font-weight: 600;
     font-size: 15px;
@@ -93,13 +108,5 @@ button{
     height: 530px;
     background: linear-gradient(144.22deg, #FFCDA5 0%, #EE4D5F 100%);
     border-radius: 10px;
-    filter: drop-shadow(4px 4px 8px rgba(230, 91, 91, 0.25));
-}
-
-.all-button{
-    position: relative;
-    top: 600px;
-    left: 20px;
-
 
 }

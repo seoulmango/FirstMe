@@ -34,8 +34,19 @@
     color: #FF8282;
 }
 
-
+.to_friend_card {
+    position: relative;
+    top:50px;
+    left:90px;
+    color : gray;
+}
 /* 카드 */
+
+a { text-decoration: none; color: black; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
 .mycard {
     position: absolute;
     left: 50%;
@@ -133,7 +144,7 @@ a button {
     font-weight: 600;
     font-size: 15px;
     line-height: 22px;
-    color: rgba(255, 103, 103, 0.53);
+    color:#FF8282;
     position: relative;
     margin-bottom: -10px;
     text-align : center;
@@ -144,7 +155,7 @@ a button {
     font-weight: 600;
     font-size: 15px;
     line-height: 22px;
-    color: rgba(255, 103, 103, 0.53);
+    color:#FF8282;
     position: relative;
     margin-bottom: -10px;
     text-align : center;

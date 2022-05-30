@@ -62,6 +62,8 @@ a{
     color: #958D8D;
 }
 
+
+
 /* .alert {
     position: absolute;
     padding: 0 25px;
@@ -190,7 +192,11 @@ img {
     margin-bottom: 20px;
 }
 
-
+a { text-decoration: none; color: black; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:focus { text-decoration: none; }
+a:hover, a:active { text-decoration: none; }
 
 /* .card-content{
     position: relative;
@@ -242,4 +248,8 @@ button {
     justify-content: space-between;
     
     width: 332px;
+}
+
+.error_message{
+    color:#FF8282;
 }
